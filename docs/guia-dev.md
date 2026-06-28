@@ -21,16 +21,17 @@ Se for usar IA para gerar o teste, cole o critério no Template B do [testes.md]
 Para qualquer feature que envolva banco + backend + frontend, siga esta ordem:
 
 ```
-1. Model (models.py)
-2. Migração (makemigrations + migrate)
-3. Serviço (services.py)
-4. View (views.py)
-5. URL (urls.py)
-6. Template (.html)
-7. Teste de integração (tests/test_views.py)
+0. Critério (docs/criterios/<id>.md)     ← antes de qualquer código
+1. Teste (tests/test_models.py ou test_views.py)  ← deve falhar aqui
+2. Model (models.py)
+3. Migração (makemigrations + migrate)
+4. Serviço (services.py)
+5. View (views.py)
+6. URL (urls.py)
+7. Template (.html)
 ```
 
-Cards de camada única (só `[Banco]`, só `[Backend]`, só `[Frontend]`) seguem só a etapa correspondente.
+Cards de camada única (só `[Banco]`, só `[Backend]`, só `[Frontend]`) seguem só as etapas correspondentes — mas o critério e o teste sempre vêm primeiro.
 
 ---
 
@@ -277,8 +278,8 @@ Um `assert` principal por teste. Teste comportamento observável, não detalhe i
 
 ## 9. Usando IA para gerar testes
 
-1. Escreva o critério (Template A do [testes.md](testes.md)).
-2. Cole no Template B e envie para a IA.
+1. Copie [criterios/TEMPLATE.md](criterios/TEMPLATE.md), salve como `criterios/<id-da-tarefa>.md` e preencha o critério (Template A do [testes.md](testes.md)).
+2. Cole o critério no Template B e envie para a IA.
 3. **Rode o teste gerado — ele deve falhar.** Se passar, o teste está errado.
 4. Implemente o código até o teste passar.
 5. Leia o teste e confirme que ele cobre o critério, não apenas o código que você escreveu.

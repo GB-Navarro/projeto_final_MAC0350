@@ -86,7 +86,7 @@ static/
 
 ## Definition of Done (por feature)
 
-- [ ] Critério de aceitação escrito **antes** do código (ver [testes.md](docs/testes.md)).
+- [ ] Critério de aceitação escrito **antes** do código e salvo em `docs/criterios/<id-da-tarefa>.md` (ver [testes.md](docs/testes.md)).
 - [ ] Teste gerado e **conferido por humano** (reflete a regra, não a implementação).
 - [ ] Testes passando.
 - [ ] `pytest` verde localmente antes do PR.
