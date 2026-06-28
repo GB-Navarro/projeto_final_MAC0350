@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Django
+db.sqlite3
+.env
+local_settings.py
+staticfiles/
+
+# Testes e cobertura
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
