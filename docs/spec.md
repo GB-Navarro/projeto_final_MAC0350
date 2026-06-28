@@ -1,7 +1,7 @@
 # Plataforma de Questões — OBCON
 
 > Descrição do projeto (o *quê* e o *porquê*).
-> Como instalar e rodar → [README.md](README.md) · Fluxo de testes → [testes.md](testes.md) · Tarefas → [backlog.md](backlog.md) · Convenções (AI) → [CLAUDE.md](CLAUDE.md)
+> Como instalar e rodar → [README.md](../README.md) · Fluxo de testes → [testes.md](testes.md) · Tarefas → [backlog.md](backlog.md) · Convenções (AI) → [CLAUDE.md](../CLAUDE.md)
 
 ---
 

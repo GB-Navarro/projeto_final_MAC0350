@@ -1,7 +1,7 @@
 # Guia do Desenvolvedor — Plataforma OBCON
 
 > Como construir neste projeto: fluxo de trabalho, padrões de código e uso de IA.
-> Leia [CLAUDE.md](CLAUDE.md) antes deste guia. Tarefas → [backlog.md](backlog.md) · Testes → [testes.md](testes.md)
+> Leia [CLAUDE.md](../CLAUDE.md) antes deste guia. Tarefas → [backlog.md](backlog.md) · Testes → [testes.md](testes.md)
 
 ---
 

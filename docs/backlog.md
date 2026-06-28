@@ -3,7 +3,7 @@
 > Pronto para colar num kanban. Cada item é um **card**.
 > **Colagem em massa (Trello, etc.):** copie a "Lista rápida" da §1 — cada linha vira um card.
 > **Colagem detalhada (Notion, Linear, GitHub):** copie os blocos da §2 — cada `### [ID] Título` é um card.
-> Como testar cada card → [testes.md](testes.md) · Definição de "pronto" → [CLAUDE.md](CLAUDE.md).
+> Como testar cada card → [testes.md](testes.md) · Definição de "pronto" → [CLAUDE.md](../CLAUDE.md).
 
 Epics = fases. Cada card tem ID (`F<fase>-<n>`) e uma **camada** no título: `[Infra]`, `[Banco]`, `[Backend]` ou `[Frontend]`. Backend, banco/infra e frontend ficam em cards separados.
 

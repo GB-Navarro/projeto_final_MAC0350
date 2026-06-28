@@ -1,7 +1,7 @@
 # CLAUDE.md — Plataforma OBCON
 
 > Leia isto antes de qualquer coisa.
-> Setup → [README.md](README.md) · Descrição completa → [spec.md](spec.md) · Tarefas → [backlog.md](backlog.md) · Testes → [testes.md](testes.md) · Guia do dev → [guia-dev.md](guia-dev.md)
+> Setup → [README.md](README.md) · Descrição completa → [spec.md](docs/spec.md) · Tarefas → [backlog.md](docs/backlog.md) · Testes → [testes.md](docs/testes.md) · Guia do dev → [guia-dev.md](docs/guia-dev.md)
 
 Stack: **Django full-stack** · **SQLite** · **Bootstrap 5** (CDN) · **KaTeX** (CDN) · testes com **pytest-django + model_bakery**.
 
@@ -86,7 +86,7 @@ static/
 
 ## Definition of Done (por feature)
 
-- [ ] Critério de aceitação escrito **antes** do código (ver [testes.md](testes.md)).
+- [ ] Critério de aceitação escrito **antes** do código (ver [testes.md](docs/testes.md)).
 - [ ] Teste gerado e **conferido por humano** (reflete a regra, não a implementação).
 - [ ] Testes passando.
 - [ ] `pytest` verde localmente antes do PR.

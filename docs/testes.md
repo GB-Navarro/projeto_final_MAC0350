@@ -2,7 +2,7 @@
 
 > Como testamos. Simples para o humano, claro para a IA.
 > Stack de testes: **pytest-django** + **model_bakery**.
-> Tarefas → [backlog.md](backlog.md) · Convenções (AI) → [CLAUDE.md](CLAUDE.md) · Setup → [README.md](README.md)
+> Tarefas → [backlog.md](backlog.md) · Convenções (AI) → [CLAUDE.md](../CLAUDE.md) · Setup → [README.md](../README.md)
 
 ---
 
