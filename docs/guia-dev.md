@@ -36,20 +36,82 @@ Cards de camada única (só `[Banco]`, só `[Backend]`, só `[Frontend]`) seguem
 
 ## 3. Git
 
+### Branches
+
 ```bash
-# criar branch
-git checkout -b feat/cadastro-aluno
-
-# commitar (Conventional Commits)
-git commit -m "feat: adiciona cadastro de aluno com geração de código"
-git commit -m "test: testa que cadastro gera código no formato E+hash"
-git commit -m "fix: corrige unicidade do código em colisão"
-
-# antes de abrir PR
-pytest
+git checkout -b feat/cadastro-aluno   # feature
+git checkout -b fix/codigo-colisao    # correção
 ```
 
-Prefixos: `feat` (nova funcionalidade), `fix` (correção), `test` (só testes), `chore` (infra/config), `docs` (documentação).
+Formato: `<tipo>/<nome-curto-em-kebab-case>`. Sem espaços, sem acentos.
+
+---
+
+### Commits — prefixos
+
+| Prefixo | Quando usar | Exemplos |
+|---|---|---|
+| `add:` | Adiciona arquivo, modelo, funcionalidade ou dependência | modelo Aluno, nova view, novo campo |
+| `fix:` | Corrige um bug ou comportamento errado | unicidade do código, redirect errado |
+| `chore:` | Infra, config, reorganização sem impacto funcional | settings, gitignore, mover arquivos |
+| `test:` | Adiciona ou corrige testes (sem mudar código de produção) | novo test_views, fixture faltando |
+| `docs:` | Altera só documentação | atualiza guia-dev, corrige link |
+| `refactor:` | Melhora o código sem mudar comportamento | extrai lógica para services.py |
+| `style:` | Formatação, CSS, espaçamento — sem mudança de lógica | ajusta margem, alinha campo |
+
+---
+
+### Regras da mensagem
+
+```
+add: adiciona modelo Aluno com campos de série e escola
+^──^ ^────────────────────────────────────────────────^
+tipo  descrição em minúsculo, sem ponto final, até ~72 chars
+```
+
+- **Minúsculo** após os dois-pontos.
+- **Sem ponto final.**
+- **Imperativo:** `adiciona`, `corrige`, `remove` — não `adicionando`, `adicionei`.
+- **Em português.**
+- **Máximo ~72 caracteres** na primeira linha.
+- Se precisar explicar o *porquê*, adicione uma linha em branco e um parágrafo depois:
+
+```bash
+git commit -m "fix: corrige geração de código duplicado em cadastro simultâneo
+
+Colisão era possível com múltiplas requisições. Adicionado retry
+com até 5 tentativas antes de lançar exceção."
+```
+
+---
+
+### Exemplos: bom vs. ruim
+
+| Ruim | Bom |
+|---|---|
+| `commit das alterações` | `add: adiciona view de cadastro de aluno` |
+| `fix bug` | `fix: corrige redirect após login de admin pendente` |
+| `WIP` | `test: adiciona teste de aprovação de administrador` |
+| `add: Adicionando o modelo de Questão.` | `add: adiciona modelo Questao com campos de revisão` |
+| `chore: moved files` | `chore: move documentação para pasta docs/` |
+
+---
+
+### Fluxo completo
+
+```bash
+git checkout -b add/modelo-aluno
+
+# ... edita models.py e cria a migração ...
+
+git add apps/contas/models.py apps/contas/migrations/0002_aluno.py
+git commit -m "add: adiciona modelo Aluno com geração de código"
+
+git add apps/contas/tests/test_models.py
+git commit -m "test: testa que código do aluno começa com E e tem 7 chars"
+
+pytest   # verde antes de abrir PR
+```
 
 ---
 
@@ -232,3 +294,62 @@ A IA gera a digitação. Você garante que o critério está correto.
 - [ ] Nenhum `print` ou `breakpoint()` esquecido
 - [ ] Sem secrets ou `.env` no commit
 - [ ] Branch parte de `main` atualizado
+
+---
+
+## 11. Métricas de código (entrega de milestone)
+
+O professor pede, ao final de cada milestone, um relatório de **Complexidade Ciclomática** e **Índice de Manutenibilidade** com `radon` e `pylint`.
+
+### Quando rodar
+
+| Evento | Milestone |
+|---|---|
+| F1-11 concluído (toda a Fase 1 entregue) | `1` |
+| F2-10 concluído (toda a Fase 2 entregue) | `2` |
+
+### Como rodar (Windows)
+
+```powershell
+.\scripts\relatorio_metricas.ps1 -Milestone 1
+```
+
+O script cria a pasta `metricas/milestone_1/` com 5 arquivos:
+
+| Arquivo | Ferramenta | O que mostra |
+|---|---|---|
+| `raw.txt` | `radon raw` | LOC, SLOC, LLOC, comentários, linhas em branco |
+| `cc.txt` | `radon cc` | Complexidade Ciclomática por função (rank A–F) + média |
+| `halstead.txt` | `radon hal` | Difficulty, Effort, Volume (Halstead) |
+| `mi.txt` | `radon mi` | Índice de Manutenibilidade por arquivo (0–100) |
+| `pylint.txt` | `pylint` | Nota geral (0–10) e lista de avisos |
+
+### Comandos avulsos (referência rápida)
+
+```bash
+radon cc  apps/ -s -a   # Complexidade Ciclomática: rank A–F por função + média
+radon mi  apps/ -s      # Maintainability Index: 0–100 por arquivo
+radon raw apps/ -s      # Linhas de código (LOC/SLOC/LLOC)
+radon hal apps/         # Halstead: Difficulty, Effort, Volume
+pylint    apps/         # Qualidade geral (0–10)
+```
+
+### O que significam os ranks (Complexidade Ciclomática)
+
+| Rank | CC | Risco |
+|---|---|---|
+| A | 1–5 | baixo (ideal) |
+| B | 6–10 | bem estruturado |
+| C | 11–20 | moderado |
+| D | 21–30 | mais complexo |
+| E | 31–40 | alarmante |
+| F | 41+ | propenso a erros |
+
+### O que commitar
+
+Versione a pasta `metricas/` no repositório para mostrar a **evolução entre milestones**:
+
+```bash
+git add metricas/milestone_1/
+git commit -m "docs: adiciona relatorio de metricas da milestone 1"
+```

@@ -3,3 +3,5 @@ pytest
 pytest-django
 model-bakery
 coverage
+radon
+pylint
