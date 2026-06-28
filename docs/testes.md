@@ -23,7 +23,7 @@ Para **cada tarefa** do [backlog.md](backlog.md), siga estes 5 passos, sempre na
                              └──── próxima tarefa ──────────────┘
 ```
 
-1. **Escrever o critério** — você descreve a regra em linguagem simples (Template A). *Antes de qualquer código.*
+1. **Escrever o critério** — copie [criterios/TEMPLATE.md](criterios/TEMPLATE.md), salve como `criterios/<id-da-tarefa>.md` (ex: `criterios/F1-3.md`) e preencha. *Antes de qualquer código.*
 2. **Gerar o teste** — cole o critério no prompt (Template B) e a IA escreve o teste.
 3. **Rodar e ver falhar** — `pytest`. O teste **tem que falhar** (a feature ainda não existe). Se passar, está errado.
 4. **Implementar** — escreva o mínimo de código até o teste passar.
@@ -59,6 +59,8 @@ Sempre no **início da tarefa**, antes do código.
 **A** = a regra (humano). **B** = o prompt para a IA (recebe o A). **C** = o formato de saída.
 
 ### Template A — Critério de aceitação
+
+> Salve em `docs/criterios/<id-da-tarefa>.md` (ex: `F1-3.md`). Use [criterios/TEMPLATE.md](criterios/TEMPLATE.md) como ponto de partida.
 
 ```gherkin
 Funcionalidade: <nome curto>
