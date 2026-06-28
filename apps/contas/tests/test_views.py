@@ -72,3 +72,41 @@ def test_campo_obrigatorio_ausente_nao_cria_nada(client):
     # Assert
     assert Usuario.objects.count() == 0
     assert response.status_code == 200
+
+
+# --- F1-4: Frontend ---
+
+
+@pytest.mark.django_db
+def test_get_cadastro_aluno_exibe_formulario_com_campos(client):
+    # Arrange
+    url = reverse("contas:cadastro_aluno")
+
+    # Act
+    response = client.get(url)
+    html = response.content.decode()
+
+    # Assert
+    assert response.status_code == 200
+    assert 'name="nome"' in html
+    assert 'name="email"' in html
+    assert 'name="senha"' in html
+    assert 'name="genero"' in html
+    assert 'name="serie"' in html
+    assert 'name="escola"' in html
+    assert 'name="tipo_escola"' in html
+
+
+@pytest.mark.django_db
+def test_erro_de_validacao_exibe_mensagem_visivel(client):
+    # Arrange
+    dados_sem_email = {k: v for k, v in DADOS_VALIDOS.items() if k != "email"}
+    url = reverse("contas:cadastro_aluno")
+
+    # Act
+    response = client.post(url, dados_sem_email)
+    html = response.content.decode()
+
+    # Assert
+    assert response.status_code == 200
+    assert "errorlist" in html
