@@ -167,6 +167,7 @@ def test_email_duplicado_nao_cria_nada_administrador(client):
     # Assert
     assert Usuario.objects.count() == quantidade_antes
     assert response.status_code == 200
+    assert "errorlist" in response.content.decode()
 
 
 @pytest.mark.django_db
@@ -182,3 +183,38 @@ def test_campo_obrigatorio_ausente_nao_cria_nada_administrador(client):
     # Assert
     assert Usuario.objects.count() == quantidade_antes
     assert response.status_code == 200
+    assert "errorlist" in response.content.decode()
+
+
+# --- Administrador: F1-6 Frontend ---
+
+
+@pytest.mark.django_db
+def test_get_cadastro_administrador_exibe_formulario_com_todos_os_campos(client):
+    # Arrange
+    url = reverse("contas:cadastro_administrador")
+
+    # Act
+    response = client.get(url)
+    html = response.content.decode()
+
+    # Assert
+    assert response.status_code == 200
+    assert 'name="nome"' in html
+    assert 'name="email"' in html
+    assert 'name="senha"' in html
+
+
+@pytest.mark.django_db
+def test_erro_de_validacao_exibe_mensagem_visivel_no_cadastro_administrador(client):
+    # Arrange
+    dados_sem_email = {k: v for k, v in DADOS_VALIDOS_ADMINISTRADOR.items() if k != "email"}
+    url = reverse("contas:cadastro_administrador")
+
+    # Act
+    response = client.post(url, dados_sem_email)
+    html = response.content.decode()
+
+    # Assert
+    assert response.status_code == 200
+    assert "errorlist" in html
