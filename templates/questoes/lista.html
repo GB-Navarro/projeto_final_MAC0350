@@ -29,6 +29,13 @@
                         {{ questao.revisado_em }}
                     {% else %}
                         Não revisada
+
+                        <form method="post" action="{% url 'questoes:revisar' questao.id %}">
+                            {% csrf_token %}
+                            <button type="submit">
+                                Marcar como revisada
+                            </button>
+                        </form>
                     {% endif %}
                 </td>
             </tr>

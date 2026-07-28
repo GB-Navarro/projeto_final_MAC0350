@@ -178,3 +178,54 @@ class TestEditarQuestaoView:
 
         assert questao.enunciado == "Enunciado atualizado"
         assert questao.solucao == "Solução atualizada"
+
+@pytest.mark.django_db
+class TestRevisarQuestaoTela:
+
+    def test_tela_exibe_status_da_revisao(
+        self,
+        client_admin,
+    ):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            criado_por=client_admin.usuario,
+        )
+
+        # Antes da revisão
+        response = client_admin.client.get(
+            reverse("questoes:lista")
+        )
+
+        html = response.content.decode()
+
+        assert "Não revisada" in html
+        assert "Revisada por" not in html
+        assert "Marcar como revisada" in html
+
+        # Act
+        client_admin.client.post(
+            reverse("questoes:revisar", args=[questao.id]),
+        )
+
+        # Depois da revisão
+        response = client_admin.client.get(
+            reverse("questoes:lista")
+        )
+
+        html = response.content.decode()
+
+        questao.refresh_from_db()
+
+        # Assert
+        assert "Não revisada" not in html
+        assert "Revisada por" in html
+        assert "Marcar como revisada" not in html
+
+        nome_ou_email = (
+            client_admin.usuario.first_name
+            or client_admin.usuario.email
+        )
+
+        assert nome_ou_email in html
+        assert str(questao.revisado_em.year) in html
