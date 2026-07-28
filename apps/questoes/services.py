@@ -1,5 +1,6 @@
-from apps.questoes.models import Questao
+from django.utils import timezone
 
+from apps.questoes.models import Questao
 
 def criar_questao(usuario, dados):
     return Questao.objects.create(
@@ -10,3 +11,10 @@ def criar_questao(usuario, dados):
         alternativas=dados.get("alternativas"),
         gabarito=dados.get("gabarito"),
     )
+
+def revisar_questao(questao, usuario):
+    questao.revisado_por = usuario
+    questao.revisado_em = timezone.now()
+    questao.save()
+
+    return questao
