@@ -1,5 +1,18 @@
 from django.urls import path
 
+from apps.questoes import views
+
 app_name = 'questoes'
 
-urlpatterns = []
+urlpatterns = [
+    path(
+        "questoes/nova/",
+        views.criar_questao,
+        name="criar_questao",
+    ),
+    path( # Placeholder !!!!!
+        "questoes/",
+        views.lista,
+        name="lista",
+    ),
+]
