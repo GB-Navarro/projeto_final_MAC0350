@@ -10,11 +10,6 @@ urlpatterns = [
         views.criar_questao,
         name="criar_questao",
     ),
-    path( # Placeholder !!!!!
-        "questoes/",
-        views.lista,
-        name="lista",
-    ),
     path(
         "questoes/<int:id>/revisar/",
         views.revisar_questao,

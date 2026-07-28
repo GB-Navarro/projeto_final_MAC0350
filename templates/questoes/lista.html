@@ -1,2 +1,47 @@
-<!-- Placeholder !!! -->
-<h1>Lista de questões</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1>Questões</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Enunciado</th>
+                <th>Tipo</th>
+                <th>Revisão</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for questao in questoes %}
+            <tr>
+                <td>{{ questao.enunciado }}</td>
+
+                <td>{{ questao.get_tipo_display }}</td>
+
+                <td>
+                    {% if questao.revisado_por %}
+                        Revisada por
+                        {{ questao.revisado_por.first_name|default:questao.revisado_por.email }}
+                        em
+                        {{ questao.revisado_em }}
+                    {% else %}
+                        Não revisada
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">
+                    Nenhuma questão cadastrada.
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock %}

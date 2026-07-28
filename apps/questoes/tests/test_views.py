@@ -88,3 +88,56 @@ class TestListarQuestoesView:
 
         assert questao_listada.revisado_por == revisor
         assert questao_listada.revisado_em is not None
+
+@pytest.mark.django_db
+class TestTelaListagemQuestoes:
+
+    def test_tela_exibe_questoes(
+        self,
+        client_admin,
+    ):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            criado_por=client_admin.usuario,
+            enunciado="Qual é a capital do Brasil?",
+        )
+
+        # Act
+        response = client_admin.client.get(
+            reverse("questoes:lista")
+        )
+
+        # Assert
+        assert response.status_code == 200
+        assert questao.enunciado.encode() in response.content
+    
+    def test_tela_exibe_informacoes_de_revisao(
+        self,
+        client_admin,
+    ):
+        # Arrange
+        revisor = baker.make(
+            "contas.Usuario",
+            tipo="ADM",
+            first_name="João",
+        )
+
+        questao = baker.make(
+            "questoes.Questao",
+            criado_por=client_admin.usuario,
+            enunciado="Questão revisada",
+            revisado_por=revisor,
+            revisado_em=timezone.now(),
+        )
+
+        # Act
+        response = client_admin.client.get(
+            reverse("questoes:lista")
+        )
+
+        # Assert
+        html = response.content.decode()
+
+        assert "Revisada por" in html
+        assert "João" in html
