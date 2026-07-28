@@ -32,3 +32,15 @@ def revisar_questao(request, id):
     )
 
     return redirect("questoes:lista")
+
+@login_required
+def lista(request):
+    questoes = Questao.objects.all()
+
+    return render(
+        request,
+        "questoes/lista.html",
+        {
+            "questoes": questoes,
+        },
+    )

@@ -20,4 +20,9 @@ urlpatterns = [
         views.revisar_questao,
         name="revisar",
     ),
+    path(
+        "questoes/",
+        views.lista,
+        name="lista",
+    ),
 ]
