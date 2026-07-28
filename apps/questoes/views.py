@@ -13,7 +13,7 @@ def criar_questao(request):
         services.criar_questao(request.user, request.POST)
         return redirect("questoes:lista")
 
-    return render(request, "questoes/form_questao.html")
+    return render(request, "questoes/formulario.html")
 
 
 # Placeholder !!!
@@ -62,6 +62,6 @@ def editar_questao(request, id):
 
     return render(
         request,
-        "questoes/form.html",
+        "questoes/formulario.html",
         {"questao": questao},
     )

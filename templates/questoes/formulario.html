@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Criar questão</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" name="tipo">
+        <option value="DISSERTATIVA">
+            Dissertativa
+        </option>
+        <option value="MULTIPLA_ESCOLHA">
+            Múltipla escolha
+        </option>
+    </select>
+
+    <br><br>
+
+    <label for="enunciado">
+        Enunciado:
+    </label>
+    <textarea
+        id="enunciado"
+        name="enunciado"
+        rows="5"
+    ></textarea>
+
+    <br><br>
+
+    <div id="campos-multipla-escolha" style="display: none;">
+        <label for="alternativas">
+            Alternativas:
+        </label>
+        <textarea
+            id="alternativas"
+            name="alternativas"
+            rows="5"
+        ></textarea>
+
+        <br><br>
+
+        <label for="gabarito">
+            Gabarito:
+        </label>
+        <input
+            id="gabarito"
+            name="gabarito"
+            type="text"
+        >
+    </div>
+
+    <br>
+
+    <label for="solucao">
+        Solução:
+    </label>
+    <textarea
+        id="solucao"
+        name="solucao"
+        rows="5"
+    ></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Criar questão
+    </button>
+
+</form>
+
+<script src="{% static 'js/questoes/formulario.js' %}"></script>
+
+{% endblock %}

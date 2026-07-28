@@ -229,3 +229,59 @@ class TestRevisarQuestaoTela:
 
         assert nome_ou_email in html
         assert str(questao.revisado_em.year) in html
+
+@pytest.mark.django_db
+class TestFormularioCriarQuestao:
+
+    def test_formulario_exibe_campos_basicos(
+        self,
+        client_admin,
+    ):
+        # Act
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        # Assert
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "enunciado" in html
+        assert "solucao" in html
+        assert "tipo" in html
+
+    def test_formulario_exibe_campos_de_multipla_escolha(
+        self,
+        client_admin,
+    ):
+        # Act
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        # Assert
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "alternativas" in html
+        assert "gabarito" in html
+
+    def test_formulario_inicia_campos_de_multipla_escolha_ocultos(
+        self,
+        client_admin,
+    ):
+        # Act
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        # Assert
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert 'id="alternativas"' in html
+        assert 'id="gabarito"' in html
+        assert 'style="display: none;"' in html
