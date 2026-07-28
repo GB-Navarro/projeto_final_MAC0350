@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 from model_bakery import baker
+from django.utils import timezone
 
 from apps.questoes.models import Questao
 
@@ -8,21 +9,11 @@ from apps.questoes.models import Questao
 @pytest.mark.django_db
 class TestCriarQuestaoView:
 
-    def test_admin_logado_cria_questao_dissertativa(self, client):
+    def test_admin_logado_cria_questao_dissertativa(
+        self,
+        client_admin,
+    ):
         # Arrange
-        admin_usuario = baker.make(
-            "contas.Usuario",
-            tipo="ADM",
-        )
-
-        baker.make(
-            "contas.Administrador",
-            usuario=admin_usuario,
-            aprovado=True,
-        )
-
-        client.force_login(admin_usuario)
-
         dados = {
             "tipo": "DISSERTATIVA",
             "enunciado": "Explique a fotossíntese.",
@@ -30,7 +21,7 @@ class TestCriarQuestaoView:
         }
 
         # Act
-        response = client.post(
+        response = client_admin.client.post(
             reverse("questoes:criar_questao"),
             dados,
         )
@@ -42,34 +33,23 @@ class TestCriarQuestaoView:
             enunciado=dados["enunciado"]
         )
 
-        assert questao.criado_por == admin_usuario
-
+        assert questao.criado_por == client_admin.usuario
 
 @pytest.mark.django_db
 class TestListarQuestoesView:
 
-    def test_admin_logado_consulta_questoes(self, client):
+    def test_admin_logado_consulta_questoes(
+        self,
+        client_admin,
+    ):
         # Arrange
-        admin_usuario = baker.make(
-            "contas.Usuario",
-            tipo="ADM",
-        )
-
-        baker.make(
-            "contas.Administrador",
-            usuario=admin_usuario,
-            aprovado=True,
-        )
-
         questao = baker.make(
             "questoes.Questao",
-            criado_por=admin_usuario,
+            criado_por=client_admin.usuario,
         )
 
-        client.force_login(admin_usuario)
-
         # Act
-        response = client.get(
+        response = client_admin.client.get(
             reverse("questoes:lista")
         )
 
@@ -77,19 +57,11 @@ class TestListarQuestoesView:
         assert response.status_code == 200
         assert questao in response.context["questoes"]
     
-    def test_listagem_exibe_dados_de_revisao(self, client):
+    def test_listagem_exibe_dados_de_revisao(
+        self,
+        client_admin,
+    ):
         # Arrange
-        admin_usuario = baker.make(
-            "contas.Usuario",
-            tipo="ADM",
-        )
-
-        baker.make(
-            "contas.Administrador",
-            usuario=admin_usuario,
-            aprovado=True,
-        )
-
         revisor = baker.make(
             "contas.Usuario",
             tipo="ADM",
@@ -97,15 +69,13 @@ class TestListarQuestoesView:
 
         questao = baker.make(
             "questoes.Questao",
-            criado_por=admin_usuario,
+            criado_por=client_admin.usuario,
             revisado_por=revisor,
-            revisado_em="2026-07-28T12:00:00Z",
+            revisado_em=timezone.now(),
         )
 
-        client.force_login(admin_usuario)
-
         # Act
-        response = client.get(
+        response = client_admin.client.get(
             reverse("questoes:lista")
         )
 
