@@ -18,3 +18,19 @@ def revisar_questao(questao, usuario):
     questao.save()
 
     return questao
+
+def editar_questao(questao, dados):
+    questao.tipo = dados["tipo"]
+    questao.enunciado = dados["enunciado"]
+    questao.solucao = dados["solucao"]
+
+    if questao.tipo == "MULTIPLA_ESCOLHA":
+        questao.alternativas = dados["alternativas"]
+        questao.gabarito = dados["gabarito"]
+    else:
+        questao.alternativas = None
+        questao.gabarito = None
+
+    questao.save()
+
+    return questao

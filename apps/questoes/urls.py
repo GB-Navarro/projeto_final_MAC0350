@@ -20,4 +20,9 @@ urlpatterns = [
         views.lista,
         name="lista",
     ),
+    path(
+        "questoes/<int:id>/editar/",
+        views.editar_questao,
+        name="editar_questao",
+    ),
 ]

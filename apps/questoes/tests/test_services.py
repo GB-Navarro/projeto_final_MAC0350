@@ -78,3 +78,37 @@ class TestRevisaoQuestao:
 
         assert questao.revisado_por == outro_admin_aprovado.usuario
         assert questao.revisado_em != primeira_revisao
+
+@pytest.mark.django_db
+class TestEditarQuestao:
+
+    def test_admin_edita_questao_criada_por_outro_admin(
+        self,
+        outro_admin_aprovado,
+    ):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            criado_por=outro_admin_aprovado.usuario,
+            tipo="DISSERTATIVA",
+            enunciado="Enunciado antigo",
+            solucao="Solução antiga",
+        )
+
+        dados = {
+            "tipo": "DISSERTATIVA",
+            "enunciado": "Enunciado novo",
+            "solucao": "Solução nova",
+        }
+
+        # Act
+        services.editar_questao(
+            questao,
+            dados,
+        )
+
+        # Assert
+        questao.refresh_from_db()
+
+        assert questao.enunciado == "Enunciado novo"
+        assert questao.solucao == "Solução nova"

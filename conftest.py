@@ -2,7 +2,6 @@ import pytest
 from model_bakery import baker
 from types import SimpleNamespace
 
-
 @pytest.fixture
 def superuser(db):
     return baker.make(

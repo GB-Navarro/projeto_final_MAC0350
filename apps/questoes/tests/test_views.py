@@ -141,3 +141,40 @@ class TestTelaListagemQuestoes:
 
         assert "Revisada por" in html
         assert "João" in html
+
+@pytest.mark.django_db
+class TestEditarQuestaoView:
+
+    def test_admin_edita_questao_de_outro_admin(
+        self,
+        client_admin,
+        outro_admin_aprovado,
+    ):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            criado_por=outro_admin_aprovado.usuario,
+            tipo="DISSERTATIVA",
+            enunciado="Enunciado antigo",
+            solucao="Solução antiga",
+        )
+
+        dados = {
+            "tipo": "DISSERTATIVA",
+            "enunciado": "Enunciado atualizado",
+            "solucao": "Solução atualizada",
+        }
+
+        # Act
+        response = client_admin.client.post(
+            reverse("questoes:editar_questao", args=[questao.id]),
+            dados,
+        )
+
+        # Assert
+        assert response.status_code == 302
+
+        questao.refresh_from_db()
+
+        assert questao.enunciado == "Enunciado atualizado"
+        assert questao.solucao == "Solução atualizada"

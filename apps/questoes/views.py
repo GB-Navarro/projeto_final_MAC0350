@@ -44,3 +44,24 @@ def lista(request):
             "questoes": questoes,
         },
     )
+
+@login_required
+def editar_questao(request, id):
+    questao = get_object_or_404(
+        Questao,
+        id=id,
+    )
+
+    if request.method == "POST":
+        services.editar_questao(
+            questao,
+            request.POST,
+        )
+
+        return redirect("questoes:lista")
+
+    return render(
+        request,
+        "questoes/form.html",
+        {"questao": questao},
+    )
