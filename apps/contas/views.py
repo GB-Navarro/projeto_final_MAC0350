@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render
 
 from apps.contas.forms import CadastroAlunoForm, CadastroAdministradorForm
 from apps.contas.services import cadastrar_aluno, cadastrar_administrador
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from apps.contas.models import Usuario
 
 def cadastro_aluno(request):
     if request.method == "POST":
@@ -23,3 +25,52 @@ def cadastro_administrador(request):
     else:
         form = CadastroAdministradorForm()
     return render(request, "contas/cadastro_administrador.html", {"form": form})
+
+def login_usuario(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        senha = request.POST["senha"]
+
+        usuario = authenticate(
+            request,
+            username=email,
+            password=senha,
+        )
+
+        if usuario is None:
+            messages.error(
+                request,
+                "Email ou senha incorretos.",
+            )
+            return render(
+                request,
+                "contas/login.html",
+            )
+
+        if usuario.tipo == Usuario.ADM:
+            if not usuario.administrador.aprovado:
+                messages.error(
+                    request,
+                    "Administrador aguardando aprovação.",
+                )
+                return render(
+                    request,
+                    "contas/login.html",
+                )
+
+            login(request, usuario)
+            return redirect("questoes:lista")
+
+        if usuario.tipo == Usuario.ALUNO:
+            login(request, usuario)
+            return redirect("/aluno/")
+
+    return render(
+        request,
+        "contas/login.html",
+    )
+
+
+def logout_usuario(request):
+    logout(request)
+    return redirect("contas:login")

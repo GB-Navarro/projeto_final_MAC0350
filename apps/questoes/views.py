@@ -15,13 +15,6 @@ def criar_questao(request):
 
     return render(request, "questoes/formulario.html")
 
-
-# Placeholder !!!
-@login_required
-def lista(request):
-    return render(request, "questoes/lista.html")
-
-
 @login_required
 def revisar_questao(request, id):
     questao = get_object_or_404(Questao, id=id)

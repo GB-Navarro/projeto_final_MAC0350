@@ -7,7 +7,7 @@ class Usuario(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
 
-    ALUNO = 'ALUN'
+    ALUNO = 'ALUNO'
     ADM = 'ADM'
     TIPO_CHOICES = [
         (ALUNO, 'Aluno'),

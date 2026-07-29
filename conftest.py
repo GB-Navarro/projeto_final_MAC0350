@@ -16,8 +16,12 @@ def superuser(db):
 def admin_aprovado(db):
     usuario = baker.make(
         "contas.Usuario",
+        email="adm@email.com",
         tipo="ADM",
     )
+
+    usuario.set_password("senha123")
+    usuario.save()
 
     return baker.make(
         "contas.Administrador",
@@ -46,6 +50,39 @@ def outro_admin_aprovado(db):
         "contas.Administrador",
         usuario=usuario,
         aprovado=True,
+    )
+
+@pytest.fixture
+def aluno(db):
+    usuario = baker.make(
+        "contas.Usuario",
+        email="aluno@email.com",
+        tipo="ALUNO",
+    )
+    usuario.set_password("senha123")
+    usuario.save()
+
+    return baker.make(
+        "contas.Aluno",
+        usuario=usuario,
+    )
+
+
+@pytest.fixture
+def admin_pendente(db):
+    usuario = baker.make(
+        "contas.Usuario",
+        email="adm_pendente@email.com",
+        tipo="ADM",
+    )
+
+    usuario.set_password("senha123")
+    usuario.save()
+
+    return baker.make(
+        "contas.Administrador",
+        usuario=usuario,
+        aprovado=False,
     )
 
 
