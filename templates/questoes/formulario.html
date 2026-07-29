@@ -43,6 +43,13 @@
         rows="5"
     >{{ questao.enunciado|default:"" }}</textarea>
 
+    <h3>Preview</h3>
+
+    <div
+        id="preview-enunciado"
+        class="latex-preview"
+    ></div>
+
     <br><br>
 
     <div
@@ -85,6 +92,13 @@
         rows="5"
     >{{ questao.solucao|default:"" }}</textarea>
 
+    <h3>Preview</h3>
+
+    <div
+        id="preview-solucao"
+        class="latex-preview"
+    ></div>
+
     <br><br>
 
     <button type="submit">
@@ -98,5 +112,6 @@
 </form>
 
 <script src="{% static 'js/questoes/formulario.js' %}"></script>
+<script src="{% static 'js/questoes/latex_preview.js' %}"></script>
 
 {% endblock %}

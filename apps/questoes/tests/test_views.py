@@ -562,3 +562,47 @@ class TestFormularioEditarQuestao:
         )
 
         assert "oculto" in campos_multipla["class"]
+
+@pytest.mark.django_db
+class TestPreviewLatex:
+    def test_formulario_possui_preview_do_enunciado(
+        self,
+        client_admin,
+    ):
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert 'id="preview-enunciado"' in html
+
+    def test_formulario_possui_preview_da_solucao(
+        self,
+        client_admin,
+    ):
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert 'id="preview-solucao"' in html
+
+    def test_formulario_carrega_script_de_preview_latex(
+        self,
+        client_admin,
+    ):
+        response = client_admin.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "latex_preview.js" in html
