@@ -16,7 +16,7 @@
 
     <label for="tipo">Tipo:</label>
     <select id="tipo" name="tipo">
-       <option
+        <option
             value="DISSERTATIVA"
             {% if questao and questao.tipo == "DISSERTATIVA" %}selected{% endif %}
         >
@@ -41,6 +41,8 @@
         id="enunciado"
         name="enunciado"
         rows="5"
+        class="latex-input"
+        data-preview="preview-enunciado"
     >{{ questao.enunciado|default:"" }}</textarea>
 
     <h3>Preview</h3>
@@ -64,7 +66,16 @@
             id="alternativas"
             name="alternativas"
             rows="5"
+            class="latex-input"
+            data-preview="preview-alternativas"
         >{% if questao %}{{ questao.alternativas }}{% endif %}</textarea>
+
+        <h3>Preview</h3>
+
+        <div
+            id="preview-alternativas"
+            class="latex-preview"
+        ></div>
 
         <br><br>
 
@@ -90,6 +101,8 @@
         id="solucao"
         name="solucao"
         rows="5"
+        class="latex-input"
+        data-preview="preview-solucao"
     >{{ questao.solucao|default:"" }}</textarea>
 
     <h3>Preview</h3>

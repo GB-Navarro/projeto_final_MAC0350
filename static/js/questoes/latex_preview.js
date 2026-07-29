@@ -1,40 +1,27 @@
-function configurarPreview(inputId, previewId) {
-    const input = document.getElementById(inputId);
-    const preview = document.getElementById(previewId);
+document
+    .querySelectorAll(".latex-input")
+    .forEach((input) => {
+        const previewId = input.dataset.preview;
+        const preview = document.getElementById(previewId);
 
-    if (!input || !preview) {
-        return;
-    }
-
-    function atualizarPreview() {
-        try {
-            katex.render(
-                input.value,
-                preview,
-                {
-                    throwOnError: false,
-                    displayMode: true,
-                },
-            );
-        } catch {
-            preview.textContent = input.value;
+        if (!preview) {
+            return;
         }
-    }
 
-    input.addEventListener(
-        "input",
-        atualizarPreview,
-    );
+        function atualizar() {
+            preview.textContent = input.value;
 
-    atualizarPreview();
-}
+            renderMathInElement(preview, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\[", right: "\\]", display: true },
+                    { left: "$", right: "$", display: false },
+                    { left: "\\(", right: "\\)", display: false },
+                ],
+                throwOnError: false,
+            });
+        }
 
-configurarPreview(
-    "enunciado",
-    "preview-enunciado",
-);
-
-configurarPreview(
-    "solucao",
-    "preview-solucao",
-);
+        input.addEventListener("input", atualizar);
+        atualizar();
+    });
