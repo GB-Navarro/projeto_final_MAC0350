@@ -85,6 +85,14 @@ def admin_pendente(db):
         aprovado=False,
     )
 
+@pytest.fixture
+def client_aluno(client, aluno):
+    client.force_login(aluno.usuario)
+
+    return SimpleNamespace(
+        client=client,
+        usuario=aluno.usuario,
+    )
 
 # Adicione fixtures aqui à medida que os modelos forem criados. Padrão:
 #
