@@ -1,6 +1,6 @@
 import uuid
 
-from apps.contas.models import Aluno, Usuario
+from apps.contas.models import Aluno, Administrador, Usuario
 
 
 def gerar_codigo_aluno() -> str:
@@ -32,3 +32,20 @@ def cadastrar_aluno(dados: dict) -> Aluno:
     aluno.save()
 
     return aluno
+
+def cadastrar_administrador(dados: dict) -> Administrador:
+    usuario = Usuario(
+        email=dados["email"],
+        first_name=dados.get("nome", ""),
+        tipo=Usuario.ADM,
+    )
+    usuario.set_password(dados["senha"])
+    usuario.save()
+
+    administrador = Administrador(
+        usuario=usuario,
+        aprovado=False,
+    )
+    administrador.save()
+
+    return administrador
