@@ -3,17 +3,30 @@
 
 {% block content %}
 
-<h1>Criar questão</h1>
+<h1>
+    {% if questao %}
+        Editar questão
+    {% else %}
+        Criar questão
+    {% endif %}
+</h1>
 
 <form method="post">
     {% csrf_token %}
 
     <label for="tipo">Tipo:</label>
     <select id="tipo" name="tipo">
-        <option value="DISSERTATIVA">
+       <option
+            value="DISSERTATIVA"
+            {% if questao and questao.tipo == "DISSERTATIVA" %}selected{% endif %}
+        >
             Dissertativa
         </option>
-        <option value="MULTIPLA_ESCOLHA">
+
+        <option
+            value="MULTIPLA_ESCOLHA"
+            {% if questao and questao.tipo == "MULTIPLA_ESCOLHA" %}selected{% endif %}
+        >
             Múltipla escolha
         </option>
     </select>
@@ -23,33 +36,40 @@
     <label for="enunciado">
         Enunciado:
     </label>
+
     <textarea
         id="enunciado"
         name="enunciado"
         rows="5"
-    ></textarea>
+    >{{ questao.enunciado|default:"" }}</textarea>
 
     <br><br>
 
-    <div id="campos-multipla-escolha" style="display: none;">
+    <div
+        id="campos-multipla-escolha"
+        class="{% if questao and questao.tipo == 'MULTIPLA_ESCOLHA' %}visivel{% else %}oculto{% endif %}"
+    >
         <label for="alternativas">
             Alternativas:
         </label>
+
         <textarea
             id="alternativas"
             name="alternativas"
             rows="5"
-        ></textarea>
+        >{% if questao %}{{ questao.alternativas }}{% endif %}</textarea>
 
         <br><br>
 
         <label for="gabarito">
             Gabarito:
         </label>
+
         <input
             id="gabarito"
             name="gabarito"
             type="text"
+            value='{{ questao.gabarito|default:"" }}'
         >
     </div>
 
@@ -58,16 +78,21 @@
     <label for="solucao">
         Solução:
     </label>
+
     <textarea
         id="solucao"
         name="solucao"
         rows="5"
-    ></textarea>
+    >{{ questao.solucao|default:"" }}</textarea>
 
     <br><br>
 
     <button type="submit">
-        Criar questão
+        {% if questao %}
+            Salvar alterações
+        {% else %}
+            Criar questão
+        {% endif %}
     </button>
 
 </form>

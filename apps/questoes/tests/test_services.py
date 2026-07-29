@@ -112,3 +112,70 @@ class TestEditarQuestao:
 
         assert questao.enunciado == "Enunciado novo"
         assert questao.solucao == "Solução nova"
+
+    def test_alterar_questao_dissertativa_para_multipla_escolha(self):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            tipo="DISSERTATIVA",
+            enunciado="Qual é a capital do Brasil?",
+            solucao="Brasília.",
+        )
+
+        dados = {
+            "tipo": "MULTIPLA_ESCOLHA",
+            "enunciado": "Qual é a capital do Brasil?",
+            "solucao": "Brasília.",
+            "alternativas": {
+                "A": "São Paulo",
+                "B": "Brasília",
+                "C": "Rio de Janeiro",
+            },
+            "gabarito": "B",
+        }
+
+        # Act
+        services.editar_questao(
+            questao,
+            dados,
+        )
+
+        # Assert
+        questao.refresh_from_db()
+
+        assert questao.tipo == "MULTIPLA_ESCOLHA"
+        assert questao.alternativas["A"] == "São Paulo"
+        assert questao.gabarito == "B"
+
+
+    def test_alterar_questao_multipla_escolha_para_dissertativa(self):
+        # Arrange
+        questao = baker.make(
+            "questoes.Questao",
+            tipo="MULTIPLA_ESCOLHA",
+            alternativas={
+                "A": "São Paulo",
+                "B": "Brasília",
+            },
+            gabarito="B",
+        )
+
+        dados = {
+            "tipo": "DISSERTATIVA",
+            "enunciado": "Explique a resposta.",
+            "solucao": "Resposta explicada.",
+        }
+
+        # Act
+        services.editar_questao(
+            questao,
+            dados,
+        )
+
+        # Assert
+        questao.refresh_from_db()
+
+        assert questao.tipo == "DISSERTATIVA"
+        assert questao.solucao == "Resposta explicada."
+        assert questao.alternativas is None
+        assert questao.gabarito is None

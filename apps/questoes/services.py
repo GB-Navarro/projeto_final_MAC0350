@@ -1,14 +1,29 @@
 from django.utils import timezone
+import json
 
 from apps.questoes.models import Questao
 
+def normalizar_alternativas(alternativas):
+    if not alternativas:
+        return None
+
+    if isinstance(alternativas, str):
+        return json.loads(alternativas)
+
+    return alternativas
+
 def criar_questao(usuario, dados):
+    alternativas = dados.get("alternativas")
+
+    if alternativas:
+        alternativas = normalizar_alternativas(alternativas)
+
     return Questao.objects.create(
         criado_por=usuario,
         tipo=dados["tipo"],
         enunciado=dados["enunciado"],
         solucao=dados["solucao"],
-        alternativas=dados.get("alternativas"),
+        alternativas=alternativas,
         gabarito=dados.get("gabarito"),
     )
 
@@ -25,8 +40,11 @@ def editar_questao(questao, dados):
     questao.solucao = dados["solucao"]
 
     if questao.tipo == "MULTIPLA_ESCOLHA":
-        questao.alternativas = dados["alternativas"]
+        questao.alternativas = normalizar_alternativas(
+            dados["alternativas"]
+        )
         questao.gabarito = dados["gabarito"]
+
     else:
         questao.alternativas = None
         questao.gabarito = None
