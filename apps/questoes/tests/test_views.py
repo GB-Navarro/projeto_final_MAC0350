@@ -607,6 +607,7 @@ class TestPreviewLatex:
 
         assert "latex_preview.js" in html
 
+@pytest.mark.django_db
 class TestAutorizacaoQuestoes:
 
     def test_aluno_nao_pode_acessar_lista(

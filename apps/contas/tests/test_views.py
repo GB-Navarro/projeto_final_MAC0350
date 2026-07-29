@@ -292,3 +292,41 @@ class TestLoginView:
         assert response.status_code == 200
 
         assert not response.wsgi_request.user.is_authenticated
+
+@pytest.mark.django_db
+class TestTelaLogin:
+    def test_tela_login_renderiza_formulario(
+        self,
+        client,
+    ):
+        response = client.get(
+            reverse("contas:login"),
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert 'name="email"' in html
+        assert 'name="senha"' in html
+        assert "Entrar" in html
+    
+    def test_login_invalido_exibe_mensagem_erro(
+        self,
+        client,
+        aluno,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": aluno.usuario.email,
+                "senha": "senha_errada",
+            },
+            follow=True,
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "Email ou senha incorretos." in html
