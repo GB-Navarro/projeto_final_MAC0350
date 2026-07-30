@@ -27,4 +27,9 @@ urlpatterns = [
         views.administradores_pendentes,
         name="administradores_pendentes",
     ),
+    path(
+        "aluno/",
+        views.area_aluno,
+        name="area_aluno",
+    ),
 ]

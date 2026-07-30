@@ -1,10 +1,12 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.http import HttpResponseForbidden
 
 from apps.contas.decorators import superuser_required
 from apps.contas.forms import CadastroAlunoForm, CadastroAdministradorForm
 from apps.contas import services
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 from apps.contas.models import Usuario, Administrador
 
 def cadastro_aluno(request):
@@ -64,7 +66,7 @@ def login_usuario(request):
 
         if usuario.tipo == Usuario.ALUNO:
             login(request, usuario)
-            return redirect("/aluno/")
+            return redirect("contas:area_aluno")
 
     return render(
         request,
@@ -101,5 +103,18 @@ def administradores_pendentes(request):
         "contas/administradores_pendentes.html",
         {
             "administradores": administradores,
+        },
+    )
+
+@login_required
+def area_aluno(request):
+    if request.user.tipo != Usuario.ALUNO:
+        return HttpResponseForbidden()
+
+    return render(
+        request,
+        "contas/area_aluno.html",
+        {
+            "aluno": request.user.aluno,
         },
     )

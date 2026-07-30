@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Área do aluno</h1>
+
+<p>
+    Bem-vindo, {{ aluno.usuario.first_name }}!
+</p>
+
+<p>
+    Seu código de identificação:
+    <strong>{{ aluno.codigo }}</strong>
+</p>
+
+{% endblock %}

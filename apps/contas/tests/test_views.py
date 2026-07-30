@@ -437,3 +437,58 @@ class TestAdministradoresPendentes:
         )
 
         assert response.status_code == 403
+
+@pytest.mark.django_db
+class TestAreaAluno:
+    def test_aluno_logado_acessa_area_aluno(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get(
+            reverse("contas:area_aluno")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "Área do aluno" in html
+
+    def test_usuario_nao_autenticado_nao_acessa_area_aluno(
+        self,
+        client,
+    ):
+        response = client.get(
+            reverse("contas:area_aluno")
+        )
+
+        assert response.status_code == 302
+
+        assert "/login/" in response.url
+
+    def test_aluno_nao_ve_informacoes_administrativas(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get(
+            reverse("contas:area_aluno")
+        )
+
+        html = response.content.decode()
+
+        assert "Aprovar administrador" not in html
+        assert "Administradores pendentes" not in html
+
+    def test_aluno_visualiza_seu_codigo(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get(
+            reverse("contas:area_aluno")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert client_aluno.usuario.aluno.codigo in html
