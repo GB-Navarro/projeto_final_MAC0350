@@ -113,18 +113,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Badges de status — usados na listagem de questões e aprovação de admin */
-.badge-pendente {
-  background-color: var(--surface-50);
-  color: var(--ink-600);
-  border: 1px solid var(--line-200);
-}
 .badge-revisada {
-  background-color: #E7F5EE;
-  color: var(--green-600);
+  --bs-badge-bg: #D1FAE5;
+  --bs-badge-color: #065F46;
 }
 .badge-aprovado {
-  background-color: #E7F5EE;
-  color: var(--green-600);
+  --bs-badge-bg: #D1FAE5;
+  --bs-badge-color: #065F46;
+}
+.badge-pendente {
+  --bs-badge-bg: var(--surface-50);
+  --bs-badge-color: var(--ink-600);
+  border: 1px solid var(--line-200);
 }
 
 .mono {
