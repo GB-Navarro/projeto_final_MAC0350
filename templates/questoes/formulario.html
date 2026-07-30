@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>
+    {% if questao %}
+        Editar questão
+    {% else %}
+        Criar questão
+    {% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" name="tipo">
+        <option
+            value="DISSERTATIVA"
+            {% if questao and questao.tipo == "DISSERTATIVA" %}selected{% endif %}
+        >
+            Dissertativa
+        </option>
+
+        <option
+            value="MULTIPLA_ESCOLHA"
+            {% if questao and questao.tipo == "MULTIPLA_ESCOLHA" %}selected{% endif %}
+        >
+            Múltipla escolha
+        </option>
+    </select>
+
+    <br><br>
+
+    <label for="enunciado">
+        Enunciado:
+    </label>
+
+    <textarea
+        id="enunciado"
+        name="enunciado"
+        rows="5"
+        class="latex-input"
+        data-preview="preview-enunciado"
+    >{{ questao.enunciado|default:"" }}</textarea>
+
+    <h3>Preview</h3>
+
+    <div
+        id="preview-enunciado"
+        class="latex-preview"
+    ></div>
+
+    <br><br>
+
+    <div
+        id="campos-multipla-escolha"
+        class="{% if questao and questao.tipo == 'MULTIPLA_ESCOLHA' %}visivel{% else %}oculto{% endif %}"
+    >
+        <label for="alternativas">
+            Alternativas:
+        </label>
+
+        <textarea
+            id="alternativas"
+            name="alternativas"
+            rows="5"
+            class="latex-input"
+            data-preview="preview-alternativas"
+        >{% if questao %}{{ questao.alternativas }}{% endif %}</textarea>
+
+        <h3>Preview</h3>
+
+        <div
+            id="preview-alternativas"
+            class="latex-preview"
+        ></div>
+
+        <br><br>
+
+        <label for="gabarito">
+            Gabarito:
+        </label>
+
+        <input
+            id="gabarito"
+            name="gabarito"
+            type="text"
+            value='{{ questao.gabarito|default:"" }}'
+        >
+    </div>
+
+    <br>
+
+    <label for="solucao">
+        Solução:
+    </label>
+
+    <textarea
+        id="solucao"
+        name="solucao"
+        rows="5"
+        class="latex-input"
+        data-preview="preview-solucao"
+    >{{ questao.solucao|default:"" }}</textarea>
+
+    <h3>Preview</h3>
+
+    <div
+        id="preview-solucao"
+        class="latex-preview"
+    ></div>
+
+    <br><br>
+
+    <button type="submit">
+        {% if questao %}
+            Salvar alterações
+        {% else %}
+            Criar questão
+        {% endif %}
+    </button>
+
+</form>
+
+<script src="{% static 'js/questoes/formulario.js' %}"></script>
+<script src="{% static 'js/questoes/latex_preview.js' %}"></script>
+
+{% endblock %}
