@@ -66,7 +66,7 @@ def login_usuario(request):
 
         if usuario.tipo == Usuario.ALUNO:
             login(request, usuario)
-            return redirect("/aluno/")
+            return redirect("contas:area_aluno")
 
     return render(
         request,
