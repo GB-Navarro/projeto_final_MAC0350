@@ -3,7 +3,7 @@ from functools import wraps
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 
-from apps.contas.models import Usuario
+from apps.contas.models import Usuario, Administrador
 
 
 def admin_required(view):
@@ -15,7 +15,7 @@ def admin_required(view):
 
         try:
             administrador = request.user.administrador
-        except Exception:
+        except Administrador.DoesNotExist:
             return HttpResponseForbidden()
 
         if not administrador.aprovado:

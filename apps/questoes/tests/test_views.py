@@ -666,3 +666,16 @@ class TestAutorizacaoQuestoes:
         )
 
         assert response.status_code == 403
+    
+    def test_admin_pendente_nao_acessa_questoes(
+        self,
+        client,
+        admin_pendente,
+    ):
+        client.force_login(admin_pendente.usuario)
+
+        response = client.get(
+            reverse("questoes:lista")
+        )
+
+        assert response.status_code == 403

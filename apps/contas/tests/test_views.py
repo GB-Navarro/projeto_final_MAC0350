@@ -346,7 +346,7 @@ class TestAprovacaoAdministrador:
         )
 
         assert response.status_code == 302
-        
+
     def test_admin_comum_nao_pode_aprovar(
         self,
         client_admin,
