@@ -218,3 +218,176 @@ def test_erro_de_validacao_exibe_mensagem_visivel_no_cadastro_administrador(clie
     # Assert
     assert response.status_code == 200
     assert "errorlist" in html
+
+@pytest.mark.django_db
+class TestLoginView:
+    def test_aluno_faz_login_com_sucesso(
+        self,
+        client,
+        aluno,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": aluno.usuario.email,
+                "senha": "senha123",
+            },
+        )
+
+        assert response.status_code == 302
+        assert response.url == "/aluno/"
+
+        assert response.wsgi_request.user.is_authenticated
+        assert response.wsgi_request.user == aluno.usuario
+
+    def test_admin_aprovado_faz_login_com_sucesso(
+        self,
+        client,
+        admin_aprovado,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": admin_aprovado.usuario.email,
+                "senha": "senha123",
+            },
+        )
+
+        assert response.status_code == 302
+        assert response.url == reverse("questoes:lista")
+
+        assert response.wsgi_request.user.is_authenticated
+        assert response.wsgi_request.user == admin_aprovado.usuario
+
+    def test_admin_pendente_nao_consegue_logar(
+        self,
+        client,
+        admin_pendente,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": admin_pendente.usuario.email,
+                "senha": "senha123",
+            },
+        )
+
+        assert response.status_code == 200
+
+        assert not response.wsgi_request.user.is_authenticated
+
+    def test_login_com_senha_errada_falha(
+        self,
+        client,
+        aluno,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": aluno.usuario.email,
+                "senha": "senha_errada",
+            },
+        )
+
+        assert response.status_code == 200
+
+        assert not response.wsgi_request.user.is_authenticated
+
+@pytest.mark.django_db
+class TestTelaLogin:
+    def test_tela_login_renderiza_formulario(
+        self,
+        client,
+    ):
+        response = client.get(
+            reverse("contas:login"),
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert 'name="email"' in html
+        assert 'name="senha"' in html
+        assert "Entrar" in html
+    
+    def test_login_invalido_exibe_mensagem_erro(
+        self,
+        client,
+        aluno,
+    ):
+        response = client.post(
+            reverse("contas:login"),
+            {
+                "email": aluno.usuario.email,
+                "senha": "senha_errada",
+            },
+            follow=True,
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert "Email ou senha incorretos." in html
+
+@pytest.mark.django_db
+class TestAprovacaoAdministrador:
+    def test_superuser_pode_aprovar(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+        response = client_superuser.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        assert response.status_code == 302
+
+    def test_admin_comum_nao_pode_aprovar(
+        self,
+        client_admin,
+        admin_pendente,
+    ):
+        response = client_admin.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        assert response.status_code == 403
+
+        admin_pendente.refresh_from_db()
+
+        assert admin_pendente.aprovado is False
+        assert admin_pendente.aprovado_por is None
+        assert admin_pendente.aprovado_em is None
+
+    def test_admin_aprovado_passa_a_logar(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+
+        client_superuser.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        client_superuser.client.logout()
+
+        response = client_superuser.client.post(
+            reverse("contas:login"),
+            {
+                "email": admin_pendente.usuario.email,
+                "senha": "senha123",
+            },
+        )
+
+        assert response.status_code == 302

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="email" class="form-label">
+            Email
+        </label>
+
+        <input
+            id="email"
+            class="form-control"
+            type="email"
+            name="email"
+            value="{{ request.POST.email|default:'' }}"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label for="senha" class="form-label">
+            Senha
+        </label>
+
+        <input
+            id="senha"
+            class="form-control"
+            type="password"
+            name="senha"
+            required
+        >
+    </div>
+
+    <button
+        class="btn btn-primary"
+        type="submit"
+    >
+        Entrar
+    </button>
+</form>
+
+{% endblock %}

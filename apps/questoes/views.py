@@ -1,13 +1,13 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404, redirect
 
+from apps.contas.decorators import admin_required
 from apps.questoes.models import Questao
 from apps.questoes import services
 
 # Create your views here.
 
-@login_required
+@admin_required
 def criar_questao(request):
     if request.method == "POST":
         services.criar_questao(request.user, request.POST)
@@ -15,14 +15,7 @@ def criar_questao(request):
 
     return render(request, "questoes/formulario.html")
 
-
-# Placeholder !!!
-@login_required
-def lista(request):
-    return render(request, "questoes/lista.html")
-
-
-@login_required
+@admin_required
 def revisar_questao(request, id):
     questao = get_object_or_404(Questao, id=id)
 
@@ -33,7 +26,7 @@ def revisar_questao(request, id):
 
     return redirect("questoes:lista")
 
-@login_required
+@admin_required
 def lista(request):
     questoes = Questao.objects.all()
 
@@ -45,7 +38,7 @@ def lista(request):
         },
     )
 
-@login_required
+@admin_required
 def editar_questao(request, id):
     questao = get_object_or_404(
         Questao,

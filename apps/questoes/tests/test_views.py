@@ -606,3 +606,76 @@ class TestPreviewLatex:
         html = response.content.decode()
 
         assert "latex_preview.js" in html
+
+@pytest.mark.django_db
+class TestAutorizacaoQuestoes:
+
+    def test_aluno_nao_pode_acessar_lista(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get(
+            reverse("questoes:lista")
+        )
+
+        assert response.status_code == 403
+
+
+    def test_aluno_nao_pode_acessar_formulario_criar(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get(
+            reverse("questoes:criar_questao")
+        )
+
+        assert response.status_code == 403
+
+
+    def test_aluno_nao_pode_editar_questao(
+        self,
+        client_aluno,
+    ):
+        questao = baker.make(
+            "questoes.Questao",
+        )
+
+        response = client_aluno.client.get(
+            reverse(
+                "questoes:editar_questao",
+                args=[questao.id],
+            )
+        )
+
+        assert response.status_code == 403
+
+
+    def test_aluno_nao_pode_revisar_questao(
+        self,
+        client_aluno,
+    ):
+        questao = baker.make(
+            "questoes.Questao",
+        )
+
+        response = client_aluno.client.post(
+            reverse(
+                "questoes:revisar",
+                args=[questao.id],
+            )
+        )
+
+        assert response.status_code == 403
+    
+    def test_admin_pendente_nao_acessa_questoes(
+        self,
+        client,
+        admin_pendente,
+    ):
+        client.force_login(admin_pendente.usuario)
+
+        response = client.get(
+            reverse("questoes:lista")
+        )
+
+        assert response.status_code == 403
