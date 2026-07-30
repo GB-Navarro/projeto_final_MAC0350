@@ -1,4 +1,4 @@
-# CLAUDE.md — Plataforma OBCON
+# CLAUDE.md — Plataforma OBECON
 
 > Leia isto antes de qualquer coisa.
 > Setup → [README.md](README.md) · Descrição completa → [spec.md](docs/spec.md) · Tarefas → [backlog.md](docs/backlog.md) · Testes → [testes.md](docs/testes.md) · Guia do dev → [guia-dev.md](docs/guia-dev.md)

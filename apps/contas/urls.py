@@ -17,4 +17,9 @@ urlpatterns = [
         views.logout_usuario,
         name="logout",
     ),
+    path(
+        "administradores/<int:id>/aprovar/",
+        views.aprovar_administrador,
+        name="aprovar_administrador",
+    ),
 ]

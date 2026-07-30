@@ -29,16 +29,6 @@ def admin_aprovado(db):
         aprovado=True,
     )
 
-
-@pytest.fixture
-def client_admin(client, admin_aprovado):
-    client.force_login(admin_aprovado.usuario)
-
-    return SimpleNamespace(
-        client=client,
-        usuario=admin_aprovado.usuario,
-    )
-
 @pytest.fixture
 def outro_admin_aprovado(db):
     usuario = baker.make(
@@ -86,12 +76,30 @@ def admin_pendente(db):
     )
 
 @pytest.fixture
+def client_admin(client, admin_aprovado):
+    client.force_login(admin_aprovado.usuario)
+
+    return SimpleNamespace(
+        client=client,
+        usuario=admin_aprovado.usuario,
+    )
+
+@pytest.fixture
 def client_aluno(client, aluno):
     client.force_login(aluno.usuario)
 
     return SimpleNamespace(
         client=client,
         usuario=aluno.usuario,
+    )
+
+@pytest.fixture
+def client_superuser(client, superuser):
+    client.force_login(superuser)
+
+    return SimpleNamespace(
+        client=client,
+        usuario=superuser,
     )
 
 # Adicione fixtures aqui à medida que os modelos forem criados. Padrão:

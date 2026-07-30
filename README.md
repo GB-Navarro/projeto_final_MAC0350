@@ -1,4 +1,4 @@
-# Plataforma de Questões — OBCON
+# Plataforma de Questões — OBECON
 
 Plataforma web com cadastro de alunos e administradores, área do aluno e área de admin para criar, editar e revisar questões com matemática em LaTeX.
 

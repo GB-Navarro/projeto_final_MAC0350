@@ -1,4 +1,5 @@
 import uuid
+from django.utils import timezone
 
 from apps.contas.models import Aluno, Administrador, Usuario
 
@@ -46,6 +47,17 @@ def cadastrar_administrador(dados: dict) -> Administrador:
         usuario=usuario,
         aprovado=False,
     )
+    administrador.save()
+
+    return administrador
+
+def aprovar_administrador(administrador, aprovador):
+    if administrador.aprovado:
+        return administrador
+
+    administrador.aprovado = True
+    administrador.aprovado_por = aprovador
+    administrador.aprovado_em = timezone.now()
     administrador.save()
 
     return administrador

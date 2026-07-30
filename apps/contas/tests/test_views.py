@@ -330,3 +330,64 @@ class TestTelaLogin:
         html = response.content.decode()
 
         assert "Email ou senha incorretos." in html
+
+@pytest.mark.django_db
+class TestAprovacaoAdministrador:
+    def test_superuser_pode_aprovar(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+        response = client_superuser.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        assert response.status_code == 302
+        
+    def test_admin_comum_nao_pode_aprovar(
+        self,
+        client_admin,
+        admin_pendente,
+    ):
+        response = client_admin.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        assert response.status_code == 403
+
+        admin_pendente.refresh_from_db()
+
+        assert admin_pendente.aprovado is False
+        assert admin_pendente.aprovado_por is None
+        assert admin_pendente.aprovado_em is None
+
+    def test_admin_aprovado_passa_a_logar(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+
+        client_superuser.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        client_superuser.client.logout()
+
+        response = client_superuser.client.post(
+            reverse("contas:login"),
+            {
+                "email": admin_pendente.usuario.email,
+                "senha": "senha123",
+            },
+        )
+
+        assert response.status_code == 302
