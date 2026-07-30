@@ -5,8 +5,16 @@ from apps.contas import views
 app_name = 'contas'
 
 urlpatterns = [
-    path("cadastro/aluno/", views.cadastro_aluno, name="cadastro_aluno"),
-    path("cadastro/administrador/", views.cadastro_administrador, name="cadastro_administrador"),
+    path(
+        "cadastro/aluno/", 
+        views.cadastro_aluno, 
+        name="cadastro_aluno",
+    ),
+    path(
+        "cadastro/administrador/", 
+        views.cadastro_administrador, 
+        name="cadastro_administrador",
+    ),
     path(
         "login/",
         views.login_usuario,
@@ -18,12 +26,12 @@ urlpatterns = [
         name="logout",
     ),
     path(
-        "administradores/<int:id>/aprovar/",
+        "adm/<int:id>/aprovar/",
         views.aprovar_administrador,
         name="aprovar_administrador",
     ),
     path(
-        "administradores/pendentes/",
+        "adm/pendentes/",
         views.administradores_pendentes,
         name="administradores_pendentes",
     ),
@@ -31,5 +39,10 @@ urlpatterns = [
         "aluno/",
         views.area_aluno,
         name="area_aluno",
+    ),
+    path(
+        "",
+        views.home,
+        name="home",
     ),
 ]

@@ -10,6 +10,9 @@ def admin_required(view):
     @login_required
     @wraps(view)
     def wrapper(request, *args, **kwargs):
+        if request.user.is_superuser:
+            return view(request, *args, **kwargs)
+        
         if request.user.tipo != Usuario.ADM:
             return HttpResponseForbidden()
 

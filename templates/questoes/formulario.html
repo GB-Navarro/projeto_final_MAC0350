@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/questoes/formulario.css' %}">
+<link rel="stylesheet" href="{% static 'css/questoes/latex_preview.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <h1>
@@ -58,26 +63,92 @@
         id="campos-multipla-escolha"
         class="{% if questao and questao.tipo == 'MULTIPLA_ESCOLHA' %}visivel{% else %}oculto{% endif %}"
     >
-        <label for="alternativas">
-            Alternativas:
-        </label>
 
-        <textarea
+        <label>Alternativas:</label>
+
+        <div id="alternativas-container">
+
+            {% if questao and questao.alternativas %}
+                {% for alternativa in questao.alternativas %}
+                    <div class="alternativa-item mb-2">
+
+                        <label class="alternativa-label"></label>
+
+                        <textarea
+                            class="alternativa-input"
+                            rows="2"
+                        >{{ alternativa }}</textarea>
+
+                    </div>
+                {% endfor %}
+            {% else %}
+
+                <div class="alternativa-item mb-2">
+                    <label class="alternativa-label"></label>
+                    <textarea
+                        class="alternativa-input"
+                        rows="2"
+                    ></textarea>
+                </div>
+
+                <div class="alternativa-item mb-2">
+                    <label class="alternativa-label"></label>
+                    <textarea
+                        class="alternativa-input"
+                        rows="2"
+                    ></textarea>
+                </div>
+
+                <div class="alternativa-item mb-2">
+                    <label class="alternativa-label"></label>
+                    <textarea
+                        class="alternativa-input"
+                        rows="2"
+                    ></textarea>
+                </div>
+
+                <div class="alternativa-item mb-2">
+                    <label class="alternativa-label"></label>
+                    <textarea
+                        class="alternativa-input"
+                        rows="2"
+                    ></textarea>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <input
+            type="hidden"
             id="alternativas"
             name="alternativas"
-            rows="5"
-            class="latex-input"
-            data-preview="preview-alternativas"
-        >{% if questao %}{{ questao.alternativas }}{% endif %}</textarea>
+        >
 
-        <h3>Preview</h3>
+        <button
+            type="button"
+            id="adicionar-alternativa"
+            class="btn btn-outline-secondary btn-sm mt-2"
+        >
+            + Alternativa
+        </button>
+
+        <button
+            type="button"
+            id="remover-alternativa"
+            class="btn btn-outline-danger btn-sm mt-2"
+        >
+            − Alternativa
+        </button>
+
+        <h3 class="mt-3">Preview</h3>
 
         <div
             id="preview-alternativas"
             class="latex-preview"
         ></div>
 
-        <br><br>
+        <br>
 
         <label for="gabarito">
             Gabarito:
@@ -87,8 +158,9 @@
             id="gabarito"
             name="gabarito"
             type="text"
-            value='{{ questao.gabarito|default:"" }}'
+            value="{{ questao.gabarito|default:'' }}"
         >
+
     </div>
 
     <br>
@@ -123,6 +195,10 @@
     </button>
 
 </form>
+
+{% endblock %}
+
+{% block extra_js %}
 
 <script src="{% static 'js/questoes/formulario.js' %}"></script>
 <script src="{% static 'js/questoes/latex_preview.js' %}"></script>

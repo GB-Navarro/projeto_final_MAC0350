@@ -50,7 +50,7 @@ class Usuario(AbstractUser):
         (ALUNO, 'Aluno'),
         (ADM, 'Administrador'),
     ]
-    tipo = models.CharField(max_length=5, choices=TIPO_CHOICES)
+    tipo = models.CharField(max_length=5, choices=TIPO_CHOICES, default = ADM)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

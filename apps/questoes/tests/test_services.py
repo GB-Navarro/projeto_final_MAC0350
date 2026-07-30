@@ -123,7 +123,6 @@ class TestEditarQuestao:
         assert questao.solucao == "Solução nova"
 
     def test_alterar_questao_dissertativa_para_multipla_escolha(self):
-        # Arrange
         questao = baker.make(
             "questoes.Questao",
             tipo="DISSERTATIVA",
@@ -135,25 +134,27 @@ class TestEditarQuestao:
             "tipo": "MULTIPLA_ESCOLHA",
             "enunciado": "Qual é a capital do Brasil?",
             "solucao": "Brasília.",
-            "alternativas": {
-                "A": "São Paulo",
-                "B": "Brasília",
-                "C": "Rio de Janeiro",
-            },
+            "alternativas": [
+                "São Paulo",
+                "Brasília",
+                "Rio de Janeiro",
+            ],
             "gabarito": "B",
         }
 
-        # Act
         services.editar_questao(
             questao,
             dados,
         )
 
-        # Assert
         questao.refresh_from_db()
 
         assert questao.tipo == "MULTIPLA_ESCOLHA"
-        assert questao.alternativas["A"] == "São Paulo"
+        assert questao.alternativas == [
+            "São Paulo",
+            "Brasília",
+            "Rio de Janeiro",
+        ]
         assert questao.gabarito == "B"
 
 
