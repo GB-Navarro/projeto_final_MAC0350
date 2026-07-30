@@ -89,3 +89,17 @@ def aprovar_administrador(request, id):
     )
 
     return redirect("/")
+
+@superuser_required
+def administradores_pendentes(request):
+    administradores = Administrador.objects.filter(
+        aprovado=False
+    )
+
+    return render(
+        request,
+        "contas/administradores_pendentes.html",
+        {
+            "administradores": administradores,
+        },
+    )

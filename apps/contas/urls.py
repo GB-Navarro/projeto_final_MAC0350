@@ -22,4 +22,9 @@ urlpatterns = [
         views.aprovar_administrador,
         name="aprovar_administrador",
     ),
+    path(
+        "administradores/pendentes/",
+        views.administradores_pendentes,
+        name="administradores_pendentes",
+    ),
 ]
