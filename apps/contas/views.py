@@ -91,7 +91,7 @@ def aprovar_administrador(request, id):
         request.user,
     )
 
-    return redirect("/")
+    return redirect("contas:administradores_pendentes")
 
 @superuser_required
 def administradores_pendentes(request):

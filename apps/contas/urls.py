@@ -26,12 +26,12 @@ urlpatterns = [
         name="logout",
     ),
     path(
-        "administradores/<int:id>/aprovar/",
+        "adm/<int:id>/aprovar/",
         views.aprovar_administrador,
         name="aprovar_administrador",
     ),
     path(
-        "administradores/pendentes/",
+        "adm/pendentes/",
         views.administradores_pendentes,
         name="administradores_pendentes",
     ),
