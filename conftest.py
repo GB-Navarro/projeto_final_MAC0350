@@ -1,6 +1,7 @@
 import pytest
 from model_bakery import baker
 from types import SimpleNamespace
+from django.utils import timezone
 
 @pytest.fixture
 def superuser(db):
@@ -100,6 +101,39 @@ def client_superuser(client, superuser):
     return SimpleNamespace(
         client=client,
         usuario=superuser,
+    )
+
+@pytest.fixture
+def questao(db):
+    return baker.make(
+        "questoes.Questao",
+        tipo="DISSERTATIVA",
+        enunciado="Enunciado original",
+        solucao="Solução original",
+    )
+
+
+@pytest.fixture
+def questao_revisada(questao, admin_aprovado):
+    questao.revisado_por = admin_aprovado.usuario
+    questao.revisado_em = timezone.now()
+    questao.save()
+
+    return questao
+
+@pytest.fixture
+def questao_multipla(db):
+    return baker.make(
+        "questoes.Questao",
+        tipo="MULTIPLA_ESCOLHA",
+        enunciado="Questão múltipla",
+        solucao="Solução original",
+        alternativas=[
+            "Primeira alternativa",
+            "Segunda alternativa",
+            "Terceira alternativa",
+        ],
+        gabarito="A",
     )
 
 # Adicione fixtures aqui à medida que os modelos forem criados. Padrão:

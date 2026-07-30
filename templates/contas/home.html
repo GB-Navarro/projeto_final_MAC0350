@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>OBECON</h1>
+
+<p>
+    Plataforma de organização da OBECON.
+</p>
+
+<a href="{% url 'contas:login' %}">
+    Login
+</a>
+
+<a href="{% url 'contas:cadastro_aluno' %}">
+    Cadastro de aluno
+</a>
+
+<a href="{% url 'contas:cadastro_administrador' %}">
+    Cadastro de administrador
+</a>
+
+{% endblock %}

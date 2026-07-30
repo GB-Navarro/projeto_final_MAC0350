@@ -8,15 +8,17 @@ def normalizar_alternativas(alternativas):
         return None
 
     if isinstance(alternativas, str):
-        return json.loads(alternativas)
+        alternativas = json.loads(alternativas)
 
     return alternativas
 
 def criar_questao(usuario, dados):
-    alternativas = dados.get("alternativas")
+    alternativas = None
 
-    if alternativas:
-        alternativas = normalizar_alternativas(alternativas)
+    if dados["tipo"] == "MULTIPLA_ESCOLHA":
+        alternativas = normalizar_alternativas(
+            dados.get("alternativas")
+        )
 
     return Questao.objects.create(
         criado_por=usuario,
@@ -27,13 +29,6 @@ def criar_questao(usuario, dados):
         gabarito=dados.get("gabarito"),
     )
 
-def revisar_questao(questao, usuario):
-    questao.revisado_por = usuario
-    questao.revisado_em = timezone.now()
-    questao.save()
-
-    return questao
-
 def editar_questao(questao, dados):
     questao.tipo = dados["tipo"]
     questao.enunciado = dados["enunciado"]
@@ -41,7 +36,7 @@ def editar_questao(questao, dados):
 
     if questao.tipo == "MULTIPLA_ESCOLHA":
         questao.alternativas = normalizar_alternativas(
-            dados["alternativas"]
+            dados.get("alternativas")
         )
         questao.gabarito = dados["gabarito"]
 
@@ -49,6 +44,16 @@ def editar_questao(questao, dados):
         questao.alternativas = None
         questao.gabarito = None
 
+    questao.revisado_por = None
+    questao.revisado_em = None
+
+    questao.save()
+
+    return questao
+
+def revisar_questao(questao, usuario):
+    questao.revisado_por = usuario
+    questao.revisado_em = timezone.now()
     questao.save()
 
     return questao

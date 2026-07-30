@@ -3,9 +3,9 @@ from django.urls import reverse
 from model_bakery import baker
 from django.utils import timezone
 from bs4 import BeautifulSoup
+from django.http import QueryDict
 
 from apps.questoes.models import Questao
-
 
 @pytest.mark.django_db
 class TestCriarQuestaoView:
@@ -297,7 +297,7 @@ class TestFormularioCriarQuestao:
                 "tipo": "MULTIPLA_ESCOLHA",
                 "enunciado": "Pergunta",
                 "solucao": "Resposta",
-                "alternativas": '{"A":"x","B":"y"}',
+                "alternativas": '["x", "y"]',
                 "gabarito": "A",
             },
         )
@@ -308,7 +308,10 @@ class TestFormularioCriarQuestao:
             enunciado="Pergunta"
         )
 
-        assert questao.alternativas["A"] == "x"
+        assert questao.alternativas == [
+            "x",
+            "y",
+        ]
 
 @pytest.mark.django_db
 class TestFormularioEditarQuestao:
@@ -345,28 +348,15 @@ class TestFormularioEditarQuestao:
     def test_formulario_edicao_carrega_alternativas_atuais(
         self,
         client_admin,
+        questao_multipla,
     ):
-        # Arrange
-        questao = baker.make(
-            "questoes.Questao",
-            criado_por=client_admin.usuario,
-            tipo="MULTIPLA_ESCOLHA",
-            alternativas={
-                "A": "Primeira alternativa",
-                "B": "Segunda alternativa",
-            },
-            gabarito="A",
-        )
-
-        # Act
         response = client_admin.client.get(
             reverse(
                 "questoes:editar_questao",
-                args=[questao.id],
+                args=[questao_multipla.id],
             )
         )
 
-        # Assert
         assert response.status_code == 200
 
         soup = BeautifulSoup(
@@ -374,14 +364,15 @@ class TestFormularioEditarQuestao:
             "html.parser",
         )
 
-        alternativas = soup.find(
+        alternativas = soup.find_all(
             "textarea",
-            {"name": "alternativas"},
+            {"class": "alternativa-input"},
         )
 
-        assert alternativas is not None
-        assert "Primeira alternativa" in alternativas.text
-        assert "Segunda alternativa" in alternativas.text
+        assert len(alternativas) == 3
+
+        assert "Primeira alternativa" in alternativas[0].text
+        assert "Segunda alternativa" in alternativas[1].text
 
     def test_formulario_edicao_salva_alteracoes(
         self,
@@ -415,7 +406,6 @@ class TestFormularioEditarQuestao:
         self,
         client_admin,
     ):
-        # Arrange
         questao = baker.make(
             "questoes.Questao",
             criado_por=client_admin.usuario,
@@ -424,7 +414,6 @@ class TestFormularioEditarQuestao:
             solucao="Brasília.",
         )
 
-        # Act
         response = client_admin.client.post(
             reverse(
                 "questoes:editar_questao",
@@ -434,7 +423,7 @@ class TestFormularioEditarQuestao:
                 "tipo": "MULTIPLA_ESCOLHA",
                 "enunciado": "Qual é a capital do Brasil?",
                 "solucao": "Brasília.",
-                "alternativas": '{"A": "São Paulo", "B": "Brasília", "C": "Rio de Janeiro"}',
+                "alternativas": '["São Paulo", "Brasília", "Rio de Janeiro"]',
                 "gabarito": "B",
             },
         )
@@ -448,7 +437,6 @@ class TestFormularioEditarQuestao:
             )
         )
 
-        # Assert
         assert response.status_code == 200
 
         soup = BeautifulSoup(
@@ -456,7 +444,6 @@ class TestFormularioEditarQuestao:
             "html.parser",
         )
 
-        # Verifica tipo selecionado
         tipo = soup.find(
             "select",
             {"name": "tipo"},
@@ -469,21 +456,29 @@ class TestFormularioEditarQuestao:
 
         assert opcao_selecionada["value"] == "MULTIPLA_ESCOLHA"
 
-        # Verifica campos preenchidos
-        alternativas = soup.find(
+
+        alternativas = soup.find_all(
             "textarea",
-            {"name": "alternativas"},
+            {"class": "alternativa-input"},
         )
 
-        assert "São Paulo" in alternativas.text
-        assert "Brasília" in alternativas.text
-        assert "Rio de Janeiro" in alternativas.text
+        valores = [
+            alternativa.text
+            for alternativa in alternativas
+        ]
+
+        assert len(valores) == 3
+        assert "São Paulo" in valores
+        assert "Brasília" in valores
+        assert "Rio de Janeiro" in valores
+
 
         gabarito = soup.find(
             "input",
             {"name": "gabarito"},
         )
 
+        assert gabarito is not None
         assert gabarito["value"] == "B"
 
     def test_edicao_altera_questao_multipla_escolha_para_dissertativa(
@@ -496,11 +491,11 @@ class TestFormularioEditarQuestao:
             criado_por=client_admin.usuario,
             tipo="MULTIPLA_ESCOLHA",
             enunciado="Qual é a capital do Brasil?",
-            alternativas={
-                "A": "São Paulo",
-                "B": "Brasília",
-                "C": "Rio de Janeiro",
-            },
+            alternativas=[
+                "São Paulo",
+                "Brasília",
+                "Rio de Janeiro",
+            ],
             gabarito="B",
         )
 
@@ -562,6 +557,30 @@ class TestFormularioEditarQuestao:
         )
 
         assert "oculto" in campos_multipla["class"]
+
+    def test_editar_questao_remove_revisao(
+    self,
+        client_admin,
+        questao_revisada,
+    ):
+        response = client_admin.client.post(
+            reverse(
+                "questoes:editar_questao",
+                args=[questao_revisada.id],
+            ),
+            {
+                "tipo": questao_revisada.tipo,
+                "enunciado": "Novo enunciado",
+                "solucao": "Nova solução",
+            },
+        )
+
+        assert response.status_code == 302
+
+        questao_revisada.refresh_from_db()
+
+        assert questao_revisada.revisado_por is None
+        assert questao_revisada.revisado_em is None
 
 @pytest.mark.django_db
 class TestPreviewLatex:

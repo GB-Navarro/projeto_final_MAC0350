@@ -51,15 +51,16 @@ def login_usuario(request):
             )
 
         if usuario.tipo == Usuario.ADM:
-            if not usuario.administrador.aprovado:
-                messages.error(
-                    request,
-                    "Administrador aguardando aprovação.",
-                )
-                return render(
-                    request,
-                    "contas/login.html",
-                )
+            if not usuario.is_superuser:
+                if not usuario.administrador.aprovado:
+                    messages.error(
+                        request,
+                        "Administrador aguardando aprovação.",
+                    )
+                    return render(
+                        request,
+                        "contas/login.html",
+                    )
 
             login(request, usuario)
             return redirect("questoes:lista")
@@ -90,7 +91,7 @@ def aprovar_administrador(request, id):
         request.user,
     )
 
-    return redirect("/")
+    return redirect("contas:administradores_pendentes")
 
 @superuser_required
 def administradores_pendentes(request):
@@ -117,4 +118,10 @@ def area_aluno(request):
         {
             "aluno": request.user.aluno,
         },
+    )
+
+def home(request):
+    return render(
+        request,
+        "contas/home.html",
     )
