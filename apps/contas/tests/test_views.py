@@ -391,3 +391,49 @@ class TestAprovacaoAdministrador:
         )
 
         assert response.status_code == 302
+
+@pytest.mark.django_db
+class TestAdministradoresPendentes:
+
+    def test_superuser_visualiza_admins_pendentes(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+        response = client_superuser.client.get(
+            reverse("contas:administradores_pendentes")
+        )
+
+        assert response.status_code == 200
+
+        html = response.content.decode()
+
+        assert admin_pendente.usuario.email in html
+
+    def test_superuser_aprova_admin_pendente_pela_tela(
+        self,
+        client_superuser,
+        admin_pendente,
+    ):
+        response = client_superuser.client.post(
+            reverse(
+                "contas:aprovar_administrador",
+                args=[admin_pendente.id],
+            )
+        )
+
+        assert response.status_code == 302
+
+        admin_pendente.refresh_from_db()
+
+        assert admin_pendente.aprovado is True
+    
+    def test_admin_comum_nao_acessa_tela_de_pendentes(
+        self,
+        client_admin,
+    ):
+        response = client_admin.client.get(
+            reverse("contas:administradores_pendentes")
+        )
+
+        assert response.status_code == 403

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Administradores pendentes</h1>
+
+{% for admin in administradores %}
+
+<div>
+    {{ admin.usuario.email }}
+
+    <form method="post" action="{% url 'contas:aprovar_administrador' admin.id %}">
+        {% csrf_token %}
+
+        <button type="submit">
+            Aprovar
+        </button>
+    </form>
+</div>
+
+{% empty %}
+
+<p>Nenhum administrador pendente.</p>
+
+{% endfor %}
+
+{% endblock %}
