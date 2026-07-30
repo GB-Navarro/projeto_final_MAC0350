@@ -16,66 +16,67 @@
     {% endif %}
 </h1>
 
+<div class="card p-4">
 <form method="post">
     {% csrf_token %}
 
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" name="tipo">
-        <option
-            value="DISSERTATIVA"
-            {% if questao and questao.tipo == "DISSERTATIVA" %}selected{% endif %}
-        >
-            Dissertativa
-        </option>
+    <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo:</label>
+        <select id="tipo" name="tipo" class="form-select">
+            <option
+                value="DISSERTATIVA"
+                {% if questao and questao.tipo == "DISSERTATIVA" %}selected{% endif %}
+            >
+                Dissertativa
+            </option>
 
-        <option
-            value="MULTIPLA_ESCOLHA"
-            {% if questao and questao.tipo == "MULTIPLA_ESCOLHA" %}selected{% endif %}
-        >
-            Múltipla escolha
-        </option>
-    </select>
+            <option
+                value="MULTIPLA_ESCOLHA"
+                {% if questao and questao.tipo == "MULTIPLA_ESCOLHA" %}selected{% endif %}
+            >
+                Múltipla escolha
+            </option>
+        </select>
+    </div>
 
-    <br><br>
+    <div class="mb-3">
+        <label for="enunciado" class="form-label">
+            Enunciado:
+        </label>
 
-    <label for="enunciado">
-        Enunciado:
-    </label>
+        <textarea
+            id="enunciado"
+            name="enunciado"
+            rows="5"
+            class="form-control latex-input"
+            data-preview="preview-enunciado"
+        >{{ questao.enunciado|default:"" }}</textarea>
 
-    <textarea
-        id="enunciado"
-        name="enunciado"
-        rows="5"
-        class="latex-input"
-        data-preview="preview-enunciado"
-    >{{ questao.enunciado|default:"" }}</textarea>
+        <div class="mock-label mt-2">Preview</div>
 
-    <h3>Preview</h3>
-
-    <div
-        id="preview-enunciado"
-        class="latex-preview"
-    ></div>
-
-    <br><br>
+        <div
+            id="preview-enunciado"
+            class="latex-preview"
+        ></div>
+    </div>
 
     <div
         id="campos-multipla-escolha"
-        class="{% if questao and questao.tipo == 'MULTIPLA_ESCOLHA' %}visivel{% else %}oculto{% endif %}"
+        class="mb-3 {% if questao and questao.tipo == 'MULTIPLA_ESCOLHA' %}visivel{% else %}oculto{% endif %}"
     >
 
-        <label>Alternativas:</label>
+        <label class="form-label">Alternativas:</label>
 
         <div id="alternativas-container">
 
             {% if questao and questao.alternativas %}
                 {% for alternativa in questao.alternativas %}
-                    <div class="alternativa-item mb-2">
+                    <div class="alternativa-item mb-2 d-flex gap-2 align-items-start">
 
-                        <label class="alternativa-label"></label>
+                        <label class="alternativa-label form-label pt-2 mb-0"></label>
 
                         <textarea
-                            class="alternativa-input"
+                            class="alternativa-input form-control flex-grow-1"
                             rows="2"
                         >{{ alternativa }}</textarea>
 
@@ -83,34 +84,34 @@
                 {% endfor %}
             {% else %}
 
-                <div class="alternativa-item mb-2">
-                    <label class="alternativa-label"></label>
+                <div class="alternativa-item mb-2 d-flex gap-2 align-items-start">
+                    <label class="alternativa-label form-label pt-2 mb-0"></label>
                     <textarea
-                        class="alternativa-input"
+                        class="alternativa-input form-control flex-grow-1"
                         rows="2"
                     ></textarea>
                 </div>
 
-                <div class="alternativa-item mb-2">
-                    <label class="alternativa-label"></label>
+                <div class="alternativa-item mb-2 d-flex gap-2 align-items-start">
+                    <label class="alternativa-label form-label pt-2 mb-0"></label>
                     <textarea
-                        class="alternativa-input"
+                        class="alternativa-input form-control flex-grow-1"
                         rows="2"
                     ></textarea>
                 </div>
 
-                <div class="alternativa-item mb-2">
-                    <label class="alternativa-label"></label>
+                <div class="alternativa-item mb-2 d-flex gap-2 align-items-start">
+                    <label class="alternativa-label form-label pt-2 mb-0"></label>
                     <textarea
-                        class="alternativa-input"
+                        class="alternativa-input form-control flex-grow-1"
                         rows="2"
                     ></textarea>
                 </div>
 
-                <div class="alternativa-item mb-2">
-                    <label class="alternativa-label"></label>
+                <div class="alternativa-item mb-2 d-flex gap-2 align-items-start">
+                    <label class="alternativa-label form-label pt-2 mb-0"></label>
                     <textarea
-                        class="alternativa-input"
+                        class="alternativa-input form-control flex-grow-1"
                         rows="2"
                     ></textarea>
                 </div>
@@ -141,52 +142,51 @@
             − Alternativa
         </button>
 
-        <h3 class="mt-3">Preview</h3>
+        <div class="mock-label mt-3">Preview</div>
 
         <div
             id="preview-alternativas"
             class="latex-preview"
         ></div>
 
-        <br>
+        <div class="mt-3">
+            <label for="gabarito" class="form-label">
+                Gabarito:
+            </label>
 
-        <label for="gabarito">
-            Gabarito:
-        </label>
-
-        <input
-            id="gabarito"
-            name="gabarito"
-            type="text"
-            value="{{ questao.gabarito|default:'' }}"
-        >
+            <input
+                id="gabarito"
+                name="gabarito"
+                type="text"
+                class="form-control"
+                value="{{ questao.gabarito|default:'' }}"
+            >
+        </div>
 
     </div>
 
-    <br>
+    <div class="mb-3">
+        <label for="solucao" class="form-label">
+            Solução:
+        </label>
 
-    <label for="solucao">
-        Solução:
-    </label>
+        <textarea
+            id="solucao"
+            name="solucao"
+            rows="5"
+            class="form-control latex-input"
+            data-preview="preview-solucao"
+        >{{ questao.solucao|default:"" }}</textarea>
 
-    <textarea
-        id="solucao"
-        name="solucao"
-        rows="5"
-        class="latex-input"
-        data-preview="preview-solucao"
-    >{{ questao.solucao|default:"" }}</textarea>
+        <div class="mock-label mt-2">Preview</div>
 
-    <h3>Preview</h3>
+        <div
+            id="preview-solucao"
+            class="latex-preview"
+        ></div>
+    </div>
 
-    <div
-        id="preview-solucao"
-        class="latex-preview"
-    ></div>
-
-    <br><br>
-
-    <button type="submit">
+    <button type="submit" class="btn btn-primary">
         {% if questao %}
             Salvar alterações
         {% else %}
@@ -195,6 +195,7 @@
     </button>
 
 </form>
+</div>
 
 {% endblock %}
 

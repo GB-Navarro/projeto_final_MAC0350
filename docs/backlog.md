@@ -36,6 +36,9 @@ Epics = fases. Cada card tem ID (`F<fase>-<n>`) e uma **camada** no título: `[I
 - [ ] [F2-9] [Backend] Marcar questão como revisada — lógica (última vale)
 - [ ] [F2-10] [Frontend] Marcar questão como revisada — ação na tela
 
+### Epic 3 — Design e experiência
+- [ ] [F3-1] [Frontend] Novo design system — reestilização das telas existentes
+
 ---
 
 ## 2. Cards detalhados
@@ -179,3 +182,14 @@ Epics = fases. Cada card tem ID (`F<fase>-<n>`) e uma **camada** no título: `[I
 **Descrição:** Botão/ação de "marcar como revisada" na tela da questão.
 **Critérios de aceitação:**
 - Após a ação, a tela passa a exibir "Revisada por X em T".
+
+---
+
+### [F3-1] [Frontend] Novo design system — reestilização das telas existentes
+**Camada:** Frontend · **Fase:** 3
+**Descrição:** Aplica o design system (cores navy/dourado, tipografia Poppins/Inter/JetBrains Mono, componentes de card/badge/tabela) às 9 telas existentes, sem alterar nenhuma lógica de view/service. Bootstrap continua sendo a base; o design system entra via tokens (CSS custom properties) e remapeamento das variáveis do Bootstrap, não via substituição do framework.
+**Critérios de aceitação:**
+- Todas as telas usam os tokens de cor/tipografia/espaçamento do design system.
+- Nenhuma view, service, model, URL ou nome de campo/JS muda — só template e CSS.
+- `pytest` continua 100% verde, sem nenhum teste alterado.
+- Cada tela foi conferida visualmente (checklist manual, já que não há teste automatizado de UI configurado no projeto).

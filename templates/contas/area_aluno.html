@@ -2,15 +2,17 @@
 
 {% block content %}
 
-<h1>Área do aluno</h1>
+<div class="card p-4">
+    <h1>Área do aluno</h1>
 
-<p>
-    Bem-vindo, {{ aluno.usuario.first_name }}!
-</p>
+    <p>
+        Bem-vindo, {{ aluno.usuario.first_name }}!
+    </p>
 
-<p>
-    Seu código de identificação:
-    <strong>{{ aluno.codigo }}</strong>
-</p>
+    <p class="mb-0">
+        Seu código de identificação:
+        <strong class="mono">{{ aluno.codigo }}</strong>
+    </p>
+</div>
 
 {% endblock %}

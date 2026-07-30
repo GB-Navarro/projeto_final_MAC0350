@@ -5,3 +5,13 @@
 .visivel {
     display: block;
 }
+
+.alternativa-label {
+    min-width: 1.5rem;
+    font-weight: 600;
+    color: var(--navy-700);
+}
+
+.alternativa-input {
+    min-width: 0;
+}

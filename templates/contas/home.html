@@ -2,22 +2,26 @@
 
 {% block content %}
 
-<h1>OBECON</h1>
+<div class="card p-4">
+    <h1>OBECON</h1>
 
-<p>
-    Plataforma de organização da OBECON.
-</p>
+    <p>
+        Plataforma de organização da OBECON.
+    </p>
 
-<a href="{% url 'contas:login' %}">
-    Login
-</a>
+    <div class="d-flex gap-2 flex-wrap">
+        <a href="{% url 'contas:login' %}" class="btn btn-primary">
+            Login
+        </a>
 
-<a href="{% url 'contas:cadastro_aluno' %}">
-    Cadastro de aluno
-</a>
+        <a href="{% url 'contas:cadastro_aluno' %}" class="btn btn-outline-secondary">
+            Cadastro de aluno
+        </a>
 
-<a href="{% url 'contas:cadastro_administrador' %}">
-    Cadastro de administrador
-</a>
+        <a href="{% url 'contas:cadastro_administrador' %}" class="btn btn-outline-secondary">
+            Cadastro de administrador
+        </a>
+    </div>
+</div>
 
 {% endblock %}

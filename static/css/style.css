@@ -1,1 +1,140 @@
 /* Estilos próprios — complementam Bootstrap 5 */
+/* Tokens do design system (ver design-system-obecon.html) */
+
+:root {
+  --navy-900: #0A1D33;
+  --navy-800: #0F2A47;
+  --navy-700: #16385C;
+  --navy-500: #2C577F;
+  --gold-600: #C2921A;
+  --gold-500: #E3AC3D;
+  --gold-200: #F5DDA6;
+  --green-600: #1E8E5A;
+  --red-600: #D64545;
+  --blue-600: #2F6FED;
+
+  --ink-900: #14181F;
+  --ink-600: #4B5563;
+  --ink-400: #8A94A6;
+  --line-200: #E4E8EE;
+  --surface-0: #FFFFFF;
+  --surface-50: #F7F8FA;
+
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+
+  /* Bootstrap le estes tres diretamente em body{} — funciona globalmente */
+  --bs-body-font-family: var(--font-body);
+  --bs-body-bg: var(--surface-50);
+  --bs-body-color: var(--ink-900);
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-color: var(--line-200);
+  --bs-link-color: var(--navy-700);
+  --bs-link-hover-color: var(--navy-800);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
+.navbar {
+  background: linear-gradient(160deg, var(--navy-900), var(--navy-700)) !important;
+}
+
+.navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #fff !important;
+  letter-spacing: -.01em;
+}
+
+.btn {
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+}
+
+.btn-primary {
+  background-color: var(--gold-500);
+  border-color: var(--gold-500);
+  color: var(--navy-900);
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--gold-600) !important;
+  border-color: var(--gold-600) !important;
+  color: var(--navy-900) !important;
+}
+
+.btn-secondary {
+  background-color: var(--navy-700);
+  border-color: var(--navy-700);
+}
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+  background-color: var(--navy-800) !important;
+  border-color: var(--navy-800) !important;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, .5);
+}
+
+.card {
+  border-color: var(--line-200);
+  box-shadow: 0 1px 2px rgba(10, 29, 51, .06);
+}
+
+.table {
+  --bs-table-color: var(--ink-900);
+}
+.table thead th {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--ink-400);
+  font-weight: 600;
+  border-bottom-width: 1px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 .25rem rgba(44, 87, 127, .18);
+}
+
+.alert-error {
+  color: #58151c;
+  background-color: #f8d7da;
+  border-color: #f1aeb5;
+}
+
+/* Badges de status — usados na listagem de questões e aprovação de admin */
+.badge-pendente {
+  background-color: var(--surface-50);
+  color: var(--ink-600);
+  border: 1px solid var(--line-200);
+}
+.badge-revisada {
+  background-color: #E7F5EE;
+  color: var(--green-600);
+}
+.badge-aprovado {
+  background-color: #E7F5EE;
+  color: var(--green-600);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.mock-label {
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-400);
+  font-weight: 600;
+}

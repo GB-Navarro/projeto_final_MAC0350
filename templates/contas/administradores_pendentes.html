@@ -2,26 +2,35 @@
 
 {% block content %}
 
-<h1>Administradores pendentes</h1>
+<h1 class="mb-4">Administradores pendentes</h1>
 
-{% for admin in administradores %}
+<div class="card">
+    <ul class="list-group list-group-flush">
+        {% for admin in administradores %}
 
-<div>
-    {{ admin.usuario.email }}
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <span class="text-break">
+                {{ admin.usuario.email }}
+                <span class="badge badge-pendente ms-2">Pendente</span>
+            </span>
 
-    <form method="post" action="{% url 'contas:aprovar_administrador' admin.id %}">
-        {% csrf_token %}
+            <form method="post" action="{% url 'contas:aprovar_administrador' admin.id %}" class="mb-0">
+                {% csrf_token %}
 
-        <button type="submit">
-            Aprovar
-        </button>
-    </form>
+                <button type="submit" class="btn btn-primary btn-sm">
+                    Aprovar
+                </button>
+            </form>
+        </li>
+
+        {% empty %}
+
+        <li class="list-group-item text-center text-body-secondary">
+            Nenhum administrador pendente.
+        </li>
+
+        {% endfor %}
+    </ul>
 </div>
-
-{% empty %}
-
-<p>Nenhum administrador pendente.</p>
-
-{% endfor %}
 
 {% endblock %}

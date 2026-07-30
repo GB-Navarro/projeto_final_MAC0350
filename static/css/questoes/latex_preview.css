@@ -2,10 +2,11 @@
     margin-top: 0.5rem;
     padding: 1rem;
 
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--line-200);
+    border-radius: var(--radius-sm);
 
-    background: #fafafa;
+    background: var(--surface-50);
+    color: var(--ink-900);
 
     min-height: 2.5rem;
 }
