@@ -12,12 +12,14 @@
         Nova questão
     </a>
 
-    <table class="table table-striped">
+    <div class="card">
+    <table class="table table-striped mb-0">
         <thead>
             <tr>
                 <th>Enunciado</th>
                 <th>Tipo</th>
                 <th>Revisão</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -30,16 +32,15 @@
 
                 <td>
                     {% if questao.revisado_por %}
-                        Revisada por
-                        {{ questao.revisado_por.first_name|default:questao.revisado_por.email }}
-                        em
-                        {{ questao.revisado_em }}
+                        <span class="badge badge-revisada">
+                            Revisada por {{ questao.revisado_por.first_name|default:questao.revisado_por.email }} em {{ questao.revisado_em }}
+                        </span>
                     {% else %}
-                        Não revisada
+                        <span class="badge badge-pendente">Não revisada</span>
 
-                        <form method="post" action="{% url 'questoes:revisar' questao.id %}">
+                        <form method="post" action="{% url 'questoes:revisar' questao.id %}" class="d-inline">
                             {% csrf_token %}
-                            <button type="submit">
+                            <button type="submit" class="btn btn-outline-secondary btn-sm ms-1">
                                 Marcar como revisada
                             </button>
                         </form>
@@ -48,7 +49,7 @@
                 </td>
 
                 <td>
-                    <a 
+                    <a
                         class="btn btn-sm btn-primary"
                         href="{% url 'questoes:editar_questao' questao.id %}"
                     >
@@ -66,6 +67,7 @@
         </tbody>
 
     </table>
+    </div>
 
 </div>
 {% endblock %}
