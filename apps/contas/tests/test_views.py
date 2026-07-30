@@ -492,3 +492,32 @@ class TestAreaAluno:
         html = response.content.decode()
 
         assert client_aluno.usuario.aluno.codigo in html
+
+@pytest.mark.django_db
+class TestPaginaInicial:
+    def test_pagina_inicial_carrega(
+        self,
+        client,
+    ):
+        response = client.get("/")
+
+        assert response.status_code == 200
+
+    def test_pagina_inicial_exibe_links_de_acesso(
+        self,
+        client,
+    ):
+        response = client.get("/")
+
+        html = response.content.decode()
+
+        assert "Login" in html
+        assert "Cadastro" in html
+
+    def test_usuario_autenticado_acessa_home(
+        self,
+        client_aluno,
+    ):
+        response = client_aluno.client.get("/")
+
+        assert response.status_code == 200

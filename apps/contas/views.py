@@ -118,3 +118,9 @@ def area_aluno(request):
             "aluno": request.user.aluno,
         },
     )
+
+def home(request):
+    return render(
+        request,
+        "contas/home.html",
+    )
