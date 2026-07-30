@@ -11,3 +11,7 @@
     font-weight: 600;
     color: var(--navy-700);
 }
+
+.alternativa-input {
+    min-width: 0;
+}
