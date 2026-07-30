@@ -51,15 +51,16 @@ def login_usuario(request):
             )
 
         if usuario.tipo == Usuario.ADM:
-            if not usuario.administrador.aprovado:
-                messages.error(
-                    request,
-                    "Administrador aguardando aprovação.",
-                )
-                return render(
-                    request,
-                    "contas/login.html",
-                )
+            if not usuario.is_superuser:
+                if not usuario.administrador.aprovado:
+                    messages.error(
+                        request,
+                        "Administrador aguardando aprovação.",
+                    )
+                    return render(
+                        request,
+                        "contas/login.html",
+                    )
 
             login(request, usuario)
             return redirect("questoes:lista")
