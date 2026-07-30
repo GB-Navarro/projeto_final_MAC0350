@@ -1,4 +1,8 @@
+from datetime import timedelta
+from unittest.mock import patch
+
 import pytest
+from django.utils import timezone
 from model_bakery import baker
 
 from apps.questoes import services
@@ -60,18 +64,23 @@ class TestRevisaoQuestao:
             criado_por=admin_aprovado.usuario,
         )
 
-        services.revisar_questao(
-            questao,
-            admin_aprovado.usuario,
-        )
+        primeiro_instante = timezone.now()
+        segundo_instante = primeiro_instante + timedelta(seconds=1)
+
+        with patch("apps.questoes.services.timezone.now", return_value=primeiro_instante):
+            services.revisar_questao(
+                questao,
+                admin_aprovado.usuario,
+            )
 
         primeira_revisao = questao.revisado_em
 
         # Act
-        services.revisar_questao(
-            questao,
-            outro_admin_aprovado.usuario,
-        )
+        with patch("apps.questoes.services.timezone.now", return_value=segundo_instante):
+            services.revisar_questao(
+                questao,
+                outro_admin_aprovado.usuario,
+            )
 
         # Assert
         questao.refresh_from_db()
