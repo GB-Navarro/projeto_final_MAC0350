@@ -1,0 +1,145 @@
+================================================
+  NLOC    CCN   token  PARAM  length  location  
+------------------------------------------------
+       4      2     36      0       7 test_usuario_usa_email_como_login@8-14@apps/contas\tests\test_models.py
+      12      1     53      0      15 test_aluno_campos_obrigatorios@18-32@apps/contas\tests\test_models.py
+       4      1     32      0       7 test_aluno_campos_opcionais_nulos_por_padrao@36-42@apps/contas\tests\test_models.py
+       4      1     30      0       7 test_aluno_codigo_no_formato_correto@46-52@apps/contas\tests\test_models.py
+       4      1     28      0       7 test_aluno_codigo_unico@56-62@apps/contas\tests\test_models.py
+       5      1     30      0       8 test_administrador_nasce_pendente@66-73@apps/contas\tests\test_models.py
+      13      1     43      3      15 test_superuser_aprova_administrador_pendente@7-21@apps/contas\tests\test_services.py
+      15      1     52      3      18 test_aprovacao_nao_altera_admin_ja_aprovado@23-40@apps/contas\tests\test_services.py
+       9      1     76      1      15 test_cadastro_valido_cria_usuario_e_aluno@28-42@apps/contas\tests\test_views.py
+       4      1     27      1       9 test_cadastro_valido_redireciona@46-54@apps/contas\tests\test_views.py
+       7      1     56      1      12 test_email_duplicado_nao_cria_nada_aluno@58-69@apps/contas\tests\test_views.py
+       7      3     67      1      12 test_campo_obrigatorio_ausente_nao_cria_nada_aluno@73-84@apps/contas\tests\test_views.py
+      12      1     62      1      17 test_get_cadastro_aluno_exibe_formulario_com_campos@91-107@apps/contas\tests\test_views.py
+       7      3     61      1      12 test_erro_de_validacao_exibe_mensagem_visivel@111-122@apps/contas\tests\test_views.py
+       8      1     64      1      14 test_cadastro_com_dados_validos_cria_usuario_e_administrador@129-142@apps/contas\tests\test_views.py
+       4      1     27      1       9 test_cadastro_redireciona_apos_sucesso@146-154@apps/contas\tests\test_views.py
+       8      1     66      1      13 test_email_duplicado_nao_cria_nada_administrador@158-170@apps/contas\tests\test_views.py
+       8      3     77      1      13 test_campo_obrigatorio_ausente_nao_cria_nada_administrador@174-186@apps/contas\tests\test_views.py
+       8      1     46      1      13 test_get_cadastro_administrador_exibe_formulario_com_todos_os_campos@193-205@apps/contas\tests\test_views.py
+       7      3     61      1      12 test_erro_de_validacao_exibe_mensagem_visivel_no_cadastro_administrador@209-220@apps/contas\tests\test_views.py
+      16      1     67      3      18 test_aluno_faz_login_com_sucesso@224-241@apps/contas\tests\test_views.py
+      16      1     70      3      18 test_admin_aprovado_faz_login_com_sucesso@243-260@apps/contas\tests\test_views.py
+      14      1     52      3      16 test_admin_pendente_nao_consegue_logar@262-277@apps/contas\tests\test_views.py
+      14      1     52      3      16 test_login_com_senha_errada_falha@279-294@apps/contas\tests\test_views.py
+      12      1     47      2      15 test_tela_login_renderiza_formulario@298-312@apps/contas\tests\test_views.py
+      16      1     60      3      19 test_login_invalido_exibe_mensagem_erro@314-332@apps/contas\tests\test_views.py
+      12      1     38      3      13 test_superuser_pode_aprovar@336-348@apps/contas\tests\test_views.py
+      16      1     61      3      19 test_admin_comum_nao_pode_aprovar@350-368@apps/contas\tests\test_views.py
+      20      1     72      3      24 test_admin_aprovado_passa_a_logar@370-393@apps/contas\tests\test_views.py
+      11      1     46      3      14 test_superuser_visualiza_admins_pendentes@398-411@apps/contas\tests\test_views.py
+      14      1     49      3      17 test_superuser_aprova_admin_pendente_pela_tela@413-429@apps/contas\tests\test_views.py
+       8      1     27      2       9 test_admin_comum_nao_acessa_tela_de_pendentes@431-439@apps/contas\tests\test_views.py
+      10      1     40      2      13 test_aluno_logado_acessa_area_aluno@443-455@apps/contas\tests\test_views.py
+       9      1     31      2      11 test_usuario_nao_autenticado_nao_acessa_area_aluno@457-467@apps/contas\tests\test_views.py
+      10      1     40      2      12 test_aluno_nao_ve_informacoes_administrativas@469-480@apps/contas\tests\test_views.py
+      10      1     46      2      13 test_aluno_visualiza_seu_codigo@482-494@apps/contas\tests\test_views.py
+       6      1     22      2       7 test_pagina_inicial_carrega@498-504@apps/contas\tests\test_views.py
+       8      1     33      2      10 test_pagina_inicial_exibe_links_de_acesso@506-515@apps/contas\tests\test_views.py
+       6      1     24      2       7 test_usuario_autenticado_acessa_home@517-523@apps/contas\tests\test_views.py
+      12      5     83      3      16 admin_required.wrapper@12-27@apps/contas\decorators.py
+       5      1     16      1      21 admin_required@9-29@apps/contas\decorators.py
+       4      2     34      3       5 superuser_required.wrapper@34-38@apps/contas\decorators.py
+       5      1     16      1      10 superuser_required@31-40@apps/contas\decorators.py
+       5      2     38      1       5 clean_email@16-20@apps/contas\forms.py
+       5      2     38      1       5 clean_email@27-31@apps/contas\forms.py
+      11      2     63      4      15 create_user@9-23@apps/contas\models.py
+      13      3     81      4      16 create_superuser@25-40@apps/contas\models.py
+       5      2     44      3       5 save@85-89@apps/contas\models.py
+       2      1      9      1       2 __str__@91-92@apps/contas\models.py
+       2      1     11      1       2 __str__@109-110@apps/contas\models.py
+       6      3     53      0       6 gerar_codigo_aluno@7-12@apps/contas\services.py
+      19      3    118      1      21 cadastrar_aluno@15-35@apps/contas\services.py
+      14      1     72      1      16 cadastrar_administrador@37-52@apps/contas\services.py
+       8      2     40      2      10 aprovar_administrador@54-63@apps/contas\services.py
+       9      3     60      1       9 cadastro_aluno@12-20@apps/contas\views.py
+       9      3     60      1       9 cadastro_administrador@22-30@apps/contas\views.py
+      38      7    144      1      44 login_usuario@32-75@apps/contas\views.py
+       3      1     14      1       3 logout_usuario@78-80@apps/contas\views.py
+      10      1     34      2      12 aprovar_administrador@83-94@apps/contas\views.py
+      11      1     32      1      12 administradores_pendentes@97-108@apps/contas\views.py
+      10      2     39      1      11 area_aluno@111-121@apps/contas\views.py
+       5      1     13      1       5 home@123-127@apps/contas\views.py
+      11      1     50      1      16 test_nova_questao_inicia_sem_revisao@8-23@apps/questoes\tests\test_models.py
+      17      1     74      1      22 test_questao_multipla_escolha_armazena_alternativas_e_gabarito@25-46@apps/questoes\tests\test_models.py
+      15      1     54      2      20 test_admin_cria_questao_dissertativa_associada_a_ele@13-32@apps/questoes\tests\test_services.py
+      12      1     53      2      18 test_revisar_registra_administrador_e_data@37-54@apps/questoes\tests\test_services.py
+      25      1    108      3      34 test_revisar_novamente_sobrescreve_revisao_anterior@56-89@apps/questoes\tests\test_services.py
+      23      1     77      2      30 test_admin_edita_questao_criada_por_outro_admin@94-123@apps/questoes\tests\test_services.py
+      30      1     96      1      34 test_alterar_questao_dissertativa_para_multipla_escolha@125-158@apps/questoes\tests\test_services.py
+      24      1     89      1      31 test_alterar_questao_multipla_escolha_para_dissertativa@161-191@apps/questoes\tests\test_services.py
+      18      1     69      2      25 test_admin_logado_cria_questao_dissertativa@13-37@apps/questoes\tests\test_views.py
+      13      1     51      2      18 test_admin_logado_consulta_questoes@42-59@apps/questoes\tests\test_views.py
+      23      1     97      2      31 test_listagem_exibe_dados_de_revisao@61-91@apps/questoes\tests\test_views.py
+      14      1     58      2      19 test_tela_exibe_questoes@96-114@apps/questoes\tests\test_views.py
+      22      1     86      2      29 test_tela_exibe_informacoes_de_revisao@116-144@apps/questoes\tests\test_views.py
+      25      1    100      3      33 test_admin_edita_questao_de_outro_admin@149-181@apps/questoes\tests\test_views.py
+      32      2    149      2      47 test_tela_exibe_status_da_revisao@186-232@apps/questoes\tests\test_views.py
+      12      1     48      2      17 test_formulario_exibe_campos_basicos@237-253@apps/questoes\tests\test_views.py
+      11      1     44      2      16 test_formulario_exibe_campos_de_multipla_escolha@255-270@apps/questoes\tests\test_views.py
+      12      1     48      2      17 test_formulario_inicia_campos_de_multipla_escolha_ocultos@272-288@apps/questoes\tests\test_views.py
+      22      1     74      2      25 test_admin_logado_cria_questao_multipla_escolha_pelo_formulario@290-314@apps/questoes\tests\test_views.py
+      21      1     80      2      28 test_formulario_edicao_carrega_valores_atuais@319-346@apps/questoes\tests\test_views.py
+      23      1     89      3      28 test_formulario_edicao_carrega_alternativas_atuais@348-375@apps/questoes\tests\test_views.py
+      23      1     82      2      27 test_formulario_edicao_salva_alteracoes@377-403@apps/questoes\tests\test_views.py
+      63      2    233      2      78 test_edicao_altera_questao_dissertativa_para_multipla_escolha@405-482@apps/questoes\tests\test_views.py
+      58      1    211      2      76 test_edicao_altera_questao_multipla_escolha_para_dissertativa@484-559@apps/questoes\tests\test_views.py
+      20      1     73      3      23 test_editar_questao_remove_revisao@561-583@apps/questoes\tests\test_views.py
+      10      1     40      2      13 test_formulario_possui_preview_do_enunciado@587-599@apps/questoes\tests\test_views.py
+      10      1     40      2      13 test_formulario_possui_preview_da_solucao@601-613@apps/questoes\tests\test_views.py
+      10      1     40      2      13 test_formulario_carrega_script_de_preview_latex@615-627@apps/questoes\tests\test_views.py
+       8      1     27      2       9 test_aluno_nao_pode_acessar_lista@632-640@apps/questoes\tests\test_views.py
+       8      1     27      2       9 test_aluno_nao_pode_acessar_formulario_criar@643-651@apps/questoes\tests\test_views.py
+      14      1     45      2      16 test_aluno_nao_pode_editar_questao@654-669@apps/questoes\tests\test_views.py
+      14      1     45      2      16 test_aluno_nao_pode_revisar_questao@672-687@apps/questoes\tests\test_views.py
+      10      1     35      3      12 test_admin_pendente_nao_acessa_questoes@689-700@apps/questoes\tests\test_views.py
+       2      1      8      1       2 __str__@59-60@apps/questoes\models.py
+       6      3     29      1       8 normalizar_alternativas@6-13@apps/questoes\services.py
+      14      2     75      2      16 criar_questao@15-30@apps/questoes\services.py
+      16      2     88      2      21 editar_questao@32-52@apps/questoes\services.py
+       5      1     28      2       6 revisar_questao@54-59@apps/questoes\services.py
+       5      2     36      1       6 criar_questao@11-16@apps/questoes\views.py
+       7      1     33      2       9 revisar_questao@19-27@apps/questoes\views.py
+       9      1     29      1      10 lista@30-39@apps/questoes\views.py
+      16      2     55      2      19 editar_questao@42-60@apps/questoes\views.py
+27 file analyzed.
+==============================================================
+NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
+--------------------------------------------------------------
+     36       0.0     0.0        0.0         0     apps/contas\migrations\0001_initial.py
+     33       0.0     0.0        0.0         0     apps/contas\migrations\0002_administrador_aluno.py
+     17       0.0     0.0        0.0         0     apps/contas\migrations\0003_ajusta_manager_e_tipo_usuario.py
+     17       0.0     0.0        0.0         0     apps/contas\migrations\0003_alter_usuario_managers_alter_usuario_tipo.py
+      8       0.0     0.0        0.0         0     apps/contas\migrations\0004_merge_20260730_1537.py
+     12       0.0     0.0        0.0         0     apps/contas\migrations\0005_alter_usuario_tipo.py
+      0       0.0     0.0        0.0         0     apps/contas\migrations\__init__.py
+     42       5.5     1.2       34.8         6     apps/contas\tests\test_models.py
+     33      14.0     1.0       47.5         2     apps/contas\tests\test_services.py
+    359      10.2     1.3       50.5        31     apps/contas\tests\test_views.py
+      1       0.0     0.0        0.0         0     apps/contas\admin.py
+      4       0.0     0.0        0.0         0     apps/contas\apps.py
+     28       6.5     2.2       37.2         4     apps/contas\decorators.py
+     26       5.0     2.0       38.0         2     apps/contas\forms.py
+     88       6.6     1.8       41.6         5     apps/contas\models.py
+     50      11.8     2.2       70.8         4     apps/contas\services.py
+     45       0.0     0.0        0.0         0     apps/contas\urls.py
+    107      11.9     2.4       49.5         8     apps/contas\views.py
+     26       0.0     0.0        0.0         0     apps/questoes\migrations\0001_initial.py
+     32      14.0     1.0       62.0         2     apps/questoes\tests\test_models.py
+    141      21.5     1.0       79.5         6     apps/questoes\tests\test_services.py
+    521      19.8     1.1       75.6        25     apps/questoes\tests\test_views.py
+      4       0.0     0.0        0.0         0     apps/questoes\apps.py
+     48       2.0     1.0        8.0         1     apps/questoes\models.py
+     44      10.2     2.0       55.0         4     apps/questoes\services.py
+     25       0.0     0.0        0.0         0     apps/questoes\urls.py
+     46       9.2     1.5       38.2         4     apps/questoes\views.py
+
+===============================================================================================================
+No thresholds exceeded (cyclomatic_complexity > 15 or length > 1000 or nloc > 1000000 or parameter_count > 100)
+==========================================================================================
+Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
+------------------------------------------------------------------------------------------
+      1793      12.7     1.4       56.3      104            0      0.00    0.00

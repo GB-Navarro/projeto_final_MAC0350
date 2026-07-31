@@ -1,0 +1,420 @@
+apps\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\admin.py
+    LOC: 3
+    LLOC: 1
+    SLOC: 1
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 1
+    - Comment Stats
+        (C % L): 33%
+        (C % S): 100%
+        (C + M % L): 33%
+apps\contas\apps.py
+    LOC: 6
+    LLOC: 4
+    SLOC: 4
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 2
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\decorators.py
+    LOC: 40
+    LLOC: 28
+    SLOC: 28
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 12
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\forms.py
+    LOC: 31
+    LLOC: 38
+    SLOC: 26
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\models.py
+    LOC: 110
+    LLOC: 58
+    SLOC: 88
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 22
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\services.py
+    LOC: 63
+    LLOC: 32
+    SLOC: 50
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 13
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\urls.py
+    LOC: 48
+    LLOC: 4
+    SLOC: 45
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 3
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\views.py
+    LOC: 127
+    LLOC: 69
+    SLOC: 107
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 20
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\migrations\0001_initial.py
+    LOC: 43
+    LLOC: 8
+    SLOC: 36
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 6
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 3%
+        (C + M % L): 2%
+apps\contas\migrations\0002_administrador_aluno.py
+    LOC: 39
+    LLOC: 6
+    SLOC: 33
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 3%
+        (C % S): 3%
+        (C + M % L): 3%
+apps\contas\migrations\0003_ajusta_manager_e_tipo_usuario.py
+    LOC: 23
+    LLOC: 4
+    SLOC: 17
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 4%
+        (C % S): 6%
+        (C + M % L): 4%
+apps\contas\migrations\0003_alter_usuario_managers_alter_usuario_tipo.py
+    LOC: 23
+    LLOC: 4
+    SLOC: 17
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 4%
+        (C % S): 6%
+        (C + M % L): 4%
+apps\contas\migrations\0004_merge_20260730_1537.py
+    LOC: 14
+    LLOC: 4
+    SLOC: 8
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 7%
+        (C % S): 12%
+        (C + M % L): 7%
+apps\contas\migrations\0005_alter_usuario_tipo.py
+    LOC: 18
+    LLOC: 4
+    SLOC: 12
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 5
+    - Comment Stats
+        (C % L): 6%
+        (C % S): 8%
+        (C + M % L): 6%
+apps\contas\migrations\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\tests\test_models.py
+    LOC: 73
+    LLOC: 36
+    SLOC: 42
+    Comments: 12
+    Single comments: 12
+    Multi: 0
+    Blank: 19
+    - Comment Stats
+        (C % L): 16%
+        (C % S): 29%
+        (C + M % L): 16%
+apps\contas\tests\test_services.py
+    LOC: 40
+    LLOC: 19
+    SLOC: 33
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 7
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\contas\tests\test_views.py
+    LOC: 523
+    LLOC: 221
+    SLOC: 359
+    Comments: 40
+    Single comments: 40
+    Multi: 0
+    Blank: 124
+    - Comment Stats
+        (C % L): 8%
+        (C % S): 11%
+        (C + M % L): 8%
+apps\contas\tests\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\admin.py
+    LOC: 3
+    LLOC: 1
+    SLOC: 1
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 1
+    - Comment Stats
+        (C % L): 33%
+        (C % S): 100%
+        (C + M % L): 33%
+apps\questoes\apps.py
+    LOC: 6
+    LLOC: 4
+    SLOC: 4
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 2
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\models.py
+    LOC: 60
+    LLOC: 18
+    SLOC: 48
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 11
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 2%
+        (C + M % L): 2%
+apps\questoes\services.py
+    LOC: 59
+    LLOC: 33
+    SLOC: 44
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 15
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\urls.py
+    LOC: 28
+    LLOC: 4
+    SLOC: 25
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 3
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\views.py
+    LOC: 60
+    LLOC: 29
+    SLOC: 46
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 13
+    - Comment Stats
+        (C % L): 2%
+        (C % S): 2%
+        (C + M % L): 2%
+apps\questoes\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\migrations\0001_initial.py
+    LOC: 33
+    LLOC: 7
+    SLOC: 26
+    Comments: 1
+    Single comments: 1
+    Multi: 0
+    Blank: 6
+    - Comment Stats
+        (C % L): 3%
+        (C % S): 4%
+        (C + M % L): 3%
+apps\questoes\migrations\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+apps\questoes\tests\test_models.py
+    LOC: 46
+    LLOC: 16
+    SLOC: 32
+    Comments: 6
+    Single comments: 6
+    Multi: 0
+    Blank: 8
+    - Comment Stats
+        (C % L): 13%
+        (C % S): 19%
+        (C + M % L): 13%
+apps\questoes\tests\test_services.py
+    LOC: 191
+    LLOC: 64
+    SLOC: 141
+    Comments: 15
+    Single comments: 15
+    Multi: 0
+    Blank: 35
+    - Comment Stats
+        (C % L): 8%
+        (C % S): 11%
+        (C + M % L): 8%
+apps\questoes\tests\test_views.py
+    LOC: 700
+    LLOC: 213
+    SLOC: 521
+    Comments: 38
+    Single comments: 38
+    Multi: 0
+    Blank: 141
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 7%
+        (C + M % L): 5%
+apps\questoes\tests\__init__.py
+    LOC: 0
+    LLOC: 0
+    SLOC: 0
+    Comments: 0
+    Single comments: 0
+    Multi: 0
+    Blank: 0
+    - Comment Stats
+        (C % L): 0%
+        (C % S): 0%
+        (C + M % L): 0%
+** Total **
+    LOC: 2410
+    LLOC: 929
+    SLOC: 1794
+    Comments: 122
+    Single comments: 122
+    Multi: 0
+    Blank: 494
+    - Comment Stats
+        (C % L): 5%
+        (C % S): 7%
+        (C + M % L): 5%

@@ -5,4 +5,5 @@ model-bakery
 coverage
 radon
 pylint
+lizard
 beautifulsoup4

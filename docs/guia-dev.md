@@ -300,7 +300,7 @@ A IA gera a digitação. Você garante que o critério está correto.
 
 ## 11. Métricas de código (entrega de milestone)
 
-O professor pede, ao final de cada milestone, um relatório de **Complexidade Ciclomática** e **Índice de Manutenibilidade** com `radon` e `pylint`.
+O professor pede, ao final de cada milestone, um relatório de **Complexidade Ciclomática** e **Índice de Manutenibilidade** com `radon` e `pylint`. Usamos também `lizard` para complementar com número de parâmetros (NP) e linhas por método (NLOC), que radon/pylint não reportam por função.
 
 ### Quando rodar
 
@@ -315,7 +315,7 @@ O professor pede, ao final de cada milestone, um relatório de **Complexidade Ci
 .\scripts\relatorio_metricas.ps1 -Milestone 1
 ```
 
-O script cria a pasta `metricas/milestone_1/` com 5 arquivos:
+O script cria a pasta `metricas/milestone_1/` com 6 arquivos:
 
 | Arquivo | Ferramenta | O que mostra |
 |---|---|---|
@@ -324,15 +324,17 @@ O script cria a pasta `metricas/milestone_1/` com 5 arquivos:
 | `halstead.txt` | `radon hal` | Difficulty, Effort, Volume (Halstead) |
 | `mi.txt` | `radon mi` | Índice de Manutenibilidade por arquivo (0–100) |
 | `pylint.txt` | `pylint` | Nota geral (0–10) e lista de avisos |
+| `lizard.txt` | `lizard` | NLOC e nº de parâmetros (NP) por função + médias (Avg.NLOC, AvgCCN) |
 
 ### Comandos avulsos (referência rápida)
 
 ```bash
-radon cc  apps/ -s -a   # Complexidade Ciclomática: rank A–F por função + média
-radon mi  apps/ -s      # Maintainability Index: 0–100 por arquivo
-radon raw apps/ -s      # Linhas de código (LOC/SLOC/LLOC)
-radon hal apps/         # Halstead: Difficulty, Effort, Volume
-pylint    apps/         # Qualidade geral (0–10)
+radon cc  apps/ -s -a     # Complexidade Ciclomática: rank A–F por função + média
+radon mi  apps/ -s        # Maintainability Index: 0–100 por arquivo
+radon raw apps/ -s        # Linhas de código (LOC/SLOC/LLOC)
+radon hal apps/           # Halstead: Difficulty, Effort, Volume
+pylint    apps/           # Qualidade geral (0–10)
+lizard    apps/ -l python # NLOC e nº de parametros por funcao + medias
 ```
 
 ### O que significam os ranks (Complexidade Ciclomática)

@@ -11,11 +11,12 @@ New-Item -ItemType Directory -Force -Path $pasta | Out-Null
 
 Write-Host "Gerando metricas para milestone $Milestone em '$pasta'..."
 
-radon raw  apps/ -s      | Out-File "$pasta\raw.txt"      -Encoding utf8
-radon cc   apps/ -s -a   | Out-File "$pasta\cc.txt"       -Encoding utf8
-radon hal  apps/         | Out-File "$pasta\halstead.txt"  -Encoding utf8
-radon mi   apps/ -s      | Out-File "$pasta\mi.txt"       -Encoding utf8
-pylint     apps/         | Out-File "$pasta\pylint.txt"   -Encoding utf8
+radon raw  apps/ -s        | Out-File "$pasta\raw.txt"      -Encoding utf8
+radon cc   apps/ -s -a     | Out-File "$pasta\cc.txt"       -Encoding utf8
+radon hal  apps/           | Out-File "$pasta\halstead.txt" -Encoding utf8
+radon mi   apps/ -s        | Out-File "$pasta\mi.txt"       -Encoding utf8
+pylint     apps/           | Out-File "$pasta\pylint.txt"   -Encoding utf8
+lizard     apps/ -l python | Out-File "$pasta\lizard.txt"   -Encoding utf8
 
 Write-Host "Pronto. Arquivos em '$pasta':"
 Get-ChildItem $pasta | Select-Object Name
